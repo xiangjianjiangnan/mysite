@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+{% load functions_tags %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>余弦大数据</title>
+    <link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_ciwydbdsktu.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/foot.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/banner.css">
+</head>
+<body>
+    <!-- 回到顶部按钮 -->
+    <a id="scrollup" href="#top">^</a>
+    {% include 'head.html' %}
+    
+
+    <div class="main">
+        <div class="box1_back" style="background-image: url(/media/img/home_back1.jpg);"></div>
+        {% include 'head2.html' %}
+        <div class="box2_back">
+            <div class="container">
+                <div class="banner_box">
+                    <div class="banner_group" id="banner_group">
+                        <ul id="banner_ul">
+                            {% for home_banner in recommend11 %}
+                                <li>
+                                    <div class="banner_title">{{ home_banner.article_title }}</div>
+                                    <a href="{% url 'article:article_detail' home_banner.pk %}">
+                                        <img src="/media/{{ home_banner.article_cover }}">
+                                    </a>
+                                </li>
+                            {% endfor %}
+                          
+                        </ul>
+                        <span class="arrow left_arrow"><i class="icon-shangyiye iconfont"></i></span>
+                        <span class="arrow right_arrow"><i class="icon-xiayiye iconfont"></i></span>
+                        <div class="page_control_group">
+                            <div class="page_box">
+                                <div id="page_control">
+                                    {% for home_banner in recommend11 %}
+                                        <li></li>
+                                    {% endfor %}
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="recommend_box">
+                    {% for key_article in recommend12 %}
+                        <div class="recommned_list">
+                            <a href="{% url 'article:article_detail' key_article.pk %}">
+                                <img src="/media/{{ key_article.article_cover }}">
+                                <div class="shelter"></div>
+                                <div class="recommend_data">
+                                    <div class="recommend_data_list">{{ key_article.article_title }}</div>
+                                    <div class="recommend_data_list"><i class="icon-UPzhu iconfont"></i><p>{{ key_article.author }}</p></div>
+                                    <div class="recommend_data_list">
+                                        <i class="icon-shuji2 iconfont"></i><p>{{ key_article.read_num }}</p>
+                                        <i class="icon-dianzanxuanzhong iconfont"></i><p>{{ key_article.like_num }}</p>
+                                        <i class="icon-shoucangxuanzhong iconfont"></i><p>{{ key_article.collect_num }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                    
+                </div>
+
+                
+                
+            </div>
+        </div>
+        <div class="box2_back">
+            <div class="container">
+                <div class="home_recommend">
+                    <a href="{% url 'public:service_intelligence' %}"><img src="/media/img/dataservice.jpg"></a>
+                </div>
+            </div>
+        </div>
+        <div class="box2_back">
+            <div class="container">
+                <div class="main_box2">
+
+                    <div class="box2_top"><i class="icon-weibiaoti-- iconfont"></i>文选推荐</div>
+                    <div class="box2_bot">
+                        <ul class="bot_ul">
+                            {% for key_anthology in recommend13 %}
+                                <li>
+                                    <div class="li_img">
+                                        <a href="{% url 'personal_center:public_author_articles' key_anthology.pk %}"><img src="/media/{{ key_anthology.anthology_cover }}"></a>
+                                    </div>
+                                    <div class="li_title">
+                                        <a href="{% url 'personal_center:public_author_articles' key_anthology.pk %}" class="li_title"><p>{{ key_anthology.anthology_title }}</p></a>
+                                        <a href="{% url 'personal_center:public_author_anthologys' key_anthology.author.pk %}" class="li_title"><i class="icon-UPzhu iconfont"></i><p>{{ key_anthology.author }}</p></a>
+                                    </div>  
+                                </li> 
+                            {% endfor %}
+                        </ul>
+                    </div>               
+                </div>
+                <div class="main_box2_news">
+                    <div class="news_tag"><i class="icon-yunying iconfont"></i>教程</div>
+                    <div class="news_content">
+                        {% for course in recommend16 %}
+                            <div class="new_list">
+                                <a href="{% url 'personal_center:public_author_articles' course.pk %}">
+                                    <span class="new_tag"></span>
+                                    <p>{{ course.anthology_title }}</p>
+                                </a>
+                            </div>
+                        {% empty %}
+                            <div class="new_list"><a href="Javascript:void(0);"><span class="new_tag"></span><p>暂无资讯</p></a></div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="box2_back">
+            <div class="container">
+                <div class="main_box2">
+                    <div class="box2_top"><i class="icon-weibiaoti--1 iconfont"></i>文章推荐</div>
+                    <div class="box2_bot">
+                        <ul class="bot_ul">
+                            {% for article in recommend14 %}
+                                <li>
+                                    <div class="li_img">
+                                        <a href="{% url 'article:article_detail' article.pk %}"><img src="/media/{{ article.article_cover }}"></a>
+                                    </div>
+                                    <div class="li_title">
+                                        <a href="{% url 'article:article_detail' article.pk %}" class="li_title"><p>{{ article.article_title }}</p></a>
+                                        <a href="{% url 'personal_center:public_author_anthologys' article.author.pk %}" class="li_title"><i class="icon-UPzhu iconfont"></i><p>{{ article.author }}</p></a>
+                                    </div>  
+                                </li> 
+                            {% endfor %}
+                             
+                            
+                        </ul>
+                    </div>                
+                </div>
+                <div class="main_box2_news">
+                    <div class="news_tag"><i class="icon-hangyebiaoqian iconfont"></i>资讯</div>
+                    <div class="news_content">
+                        {% for new in news %}
+                            <div class="new_list"><a href="{% url 'article:article_detail' new.pk %}"><span class="new_tag"></span><p>{{ new.article_title }}</p></a></div>
+                        {% empty %}
+                            <div class="new_list"><a href="Javascript:void(0);"><span class="new_tag"></span><p>暂无资讯</p></a></div>
+                        {% endfor %}
+                        
+                        <a href="{% url 'public:category' 'news' %}"><div class="more">查看更多></div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box2_back">
+            <div class="container">
+                <div class="news_tag"><i class="icon-icon- iconfont"></i>作者推荐</div>
+                <div class="main_box">
+                    {% for author in recommend15 %}
+                        <div class="recommend_author_list">
+                            <div class="author_head"><a href="{% url 'personal_center:public_author_anthologys' author.pk %}"><img src="/media/{{ author.profile.portrait }}"></a></div>
+                            <div class="author_data">
+                                <div class="author_name">{{ author.username }}</div>
+                                <div class="author_show">
+                                    <div class="data_list">
+                                        <div class="data_tag">文章</div>
+                                        <div class="data_tag">{% get_author_articles_count author %}</div>
+                                    </div>
+                                    <div class="data_list_mid">
+                                        <div class="data_tag">关注</div>
+                                        <div class="data_tag">{% get_author_follows_count author %}</div>
+                                    </div>
+                                    <div class="data_list">
+                                        <div class="data_tag">粉丝</div>
+                                        <div class="data_tag">{% get_author_followers_count author %}</div>
+                                    </div>
+                                </div>
+                                <div class="update">
+                                    <div class="update_tag">最近更新</div>
+                                </div>
+                                <div class="new_article"><a href="/article/{% get_author_article_12 author %}/"><p>{% get_author_article_11 author %}</p></a></div>
+                                <div class="new_article"><a href="/article/{% get_author_article_22 author %}/"><p>{% get_author_article_21 author %}</p></a></div>
+                                <div class="new_article"><a href="/article/{% get_author_article_32 author %}/"><p>{% get_author_article_31 author %}</p></a></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="box2_back">
+            <div class="container">
+                <div class="news_tag"><i class="icon-shuji2 iconfont"></i>书籍推荐</div>
+                <div class="main_box3">
+                   <div class="book_list">
+                       <div class="book_cover"><a href="#"><img src="/media/img/book.jpg"></a></div>
+                       <div class="book_name">拉新</div>
+                       <div class="book_author">加布里埃尔・温伯格</div>
+                   </div>
+                   <div class="book_list">
+                       <div class="book_cover"><a href="#"><img src="/media/img/book.jpg"></a></div>
+                       <div class="book_name">拉新</div>
+                       <div class="book_author">加布里埃尔・温伯格</div>
+                   </div>
+                   <div class="book_list">
+                       <div class="book_cover"><a href="#"><img src="/media/img/book.jpg"></a></div>
+                       <div class="book_name">拉新</div>
+                       <div class="book_author">加布里埃尔・温伯格</div>
+                   </div>
+                   <div class="book_list">
+                       <div class="book_cover"><a href="#"><img src="/media/img/book.jpg"></a></div>
+                       <div class="book_name">拉新</div>
+                       <div class="book_author">加布里埃尔・温伯格</div>
+                   </div>
+                   <div class="book_list">
+                       <div class="book_cover"><a href="#"><img src="/media/img/book.jpg"></a></div>
+                       <div class="book_name">拉新</div>
+                       <div class="book_author">加布里埃尔・温伯格</div>
+                   </div>
+                   <div class="book_list">
+                       <div class="book_cover"><a href="#"><img src="/media/img/book.jpg"></a></div>
+                       <div class="book_name">拉新</div>
+                       <div class="book_author">加布里埃尔・温伯格</div>
+                   </div>
+                </div>
+
+            </div>
+        </div> -->
+
+        <div class="box2_back">
+            <div class="container">
+                <div class="news_tag"><i class="icon-gengxin iconfont"></i>文章更新</div>
+                <div class="main_box4">
+                    <div class="update_list update_table">
+                        <div class="update_category update">分类</div>
+                        <div class="update_anthology update">文选</div>
+                        <div class="update_title update">标题</div>
+                        <div class="update_author update">作者</div>
+                        <div class="update_time update">更新时间</div>
+                    </div>
+                    {% for article_update in articles_update %}
+                        <div class="update_list">
+                            <a href="{% url 'public:category' article_update.category %}">
+                                <div class="update_category update">{{ article_update.category }}</div>
+                            </a>
+                            <a href="{% url 'personal_center:public_author_articles' article_update.anthology.pk %}">
+                                <div class="update_anthology update">{{ article_update.anthology.anthology_title }}</div>
+                            </a>
+                            <a href="{% url 'article:article_detail' article_update.pk %}">
+                                <div class="update_title update">{{ article_update.article_title }}</div>
+                            </a>
+                            <a href="{% url 'personal_center:public_author_anthologys' article_update.author.pk %}"><div class="update_author update">{{ article_update.author.username }}</div></a>
+                            <div class="update_time update">{{ article_update.created_time|date:"Y/m/d H:i:s" }}</div>
+                        </div>
+                    {% endfor %}
+                    
+                    
+                </div>
+
+            </div>
+        </div>
+
+        <div class="box2_back">
+            <div class="container">
+                <div class="news_tag"><i class="icon-gengxin iconfont"></i>帖子更新</div>
+                <div class="main_box4">
+                    <div class="update_list update_table">
+                        <div class="update_category update">分类</div>
+                        <div class="update_anthology update">评论数</div>
+                        <div class="update_title update">标题</div>
+                        <div class="update_author update">作者</div>
+                        
+                        <div class="update_time update">更新时间</div>
+                    </div>
+                    {% for topic_update in topics_update %}
+                        <div class="update_list">
+                            <a href="{% url 'community:topic_categry' topic_update.category %}">
+                                <div class="update_category update">{{ topic_update.category }}</div>
+                            </a>
+                            
+                            <div class="update_count update">{% get_topiccomments_count topic_update %}</div>
+                            <a href="{% url 'community:topic_detail' topic_update.pk %}">
+                                <div class="update_title update">{{ topic_update.topic_title }}</div>
+                            </a>
+                            <a href="{% url 'personal_center:public_author_anthologys' topic_update.author.pk %}">
+                                <div class="update_author update">{{ topic_update.author.username }}</div>
+                            </a>
+                            <div class="update_time update">{{ topic_update.created_time|date:"Y/m/d H:i:s" }}</div>
+                        </div>
+                    {% endfor %}
+                    
+                    
+
+                   
+                </div>
+
+            </div>
+        </div>
+        
+       
+
+
+        
+    </div>
+    {% include 'foot.html' %}
+
+
+
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/banner.js"></script>
+
+    <script src="/static/js/pop.js"></script>
+    <script src="/static/js/home.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            $('.new_article').each(function(e){
+                var nodata  = $(this).find('p').text();
+                // console.log(nodata)
+                if($.trim(nodata) == 'None'){
+                    // console.log('xiaoshi');
+                    $(this).css('display','none');
+                }
+            })
+        }
+    </script>
+
+    
+
+</body>
+
+
+
+</html>

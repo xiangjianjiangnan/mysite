@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CMS新闻发布</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/pop.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_9vweoxtqhf.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			{% include 'cms_left.html' %}
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">文章</div>
+					<div class="create_bar"><i class="icon-bianji iconfont"></i>  新建</div>
+				</div>
+				<div class="right_content">
+					{% for article in articles %}
+					<div class="article_list_box">
+
+						<div class="article_cover">
+							<a href="{% url 'article:article' %}"><img src="/media/{{ article.article_cover }}"></a>	
+						</div>
+						<div class="article_detail">
+							<div class="detail_1"><a href="{% url 'article:article' %}">{{ article.article_title }}</a></div>
+							<div class="detail_2">{{ article.content|striptags|truncatechars:90 }}</div>
+							<!-- <div class="detail_2 detail_list">{{ article.summary|striptags|truncatechars:90 }}</div> -->
+							<div class="detail_3">
+								<div class="data_list"><i class="icon-time1 iconfont"></i>  {{ article.created_time|date:"Y/m/d H:i:s" }}</div>
+								<div class="data_list"><i class="icon-dianzan iconfont"></i>  123</div>
+								<div class="data_list"><i class="icon-xihuan iconfont"></i>  123</div>
+								<div class="data_list"><i class="icon-daipingjia iconfont"></i>  123</div>
+								<a href="#"><div class="data_list revise article_delete"><i class="icon-shanchu iconfont"></i>  删除</div></a>
+								<a href="#"><div class="data_list revise article_revise"><i class="icon-bianji iconfont"></i>  修改</div></a>
+								
+								
+							</div>
+							
+						</div>
+					</div>
+					{% endfor %}
+					
+					
+						
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+
+	<div class="pop" style="display: none;">
+        <div class="pop_back">
+        </div>
+        
+        <div class="pop_box">
+            <div class="close_pop"><i class="icon-guanbi iconfont"></i></div>
+            <div class="delete_tag">删除文章</div>
+            <div class="delete_img"><img src=""></div>
+            <div class="delete_title">删除文章</div>   
+        </div>              
+    </div>            
+    </div>        
+</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+{% load functions_tags %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>社区</title>
+    <link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_oy03njc37a.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/community.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/pop.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/foot.css">
+</head>
+<body>
+    <a id="scrollup" href="#top">^</a>
+    {% include 'head.html' %}
+    <div class="community_top">
+        <div class="container">
+            <div class="filter">
+                <div class="filter_tip">排序：</div>
+                <a href="{% url 'community:topic_categry' category %}"><div class="filter_list created_time">最近发帖</div></a>
+                <a href="{% url 'community:topic_categry' category %}?order=read_num"><div class="filter_list read_num">浏览最多</div></a>
+                <a href="{% url 'community:topic_categry' category %}?order=comment_num"><div class="filter_list comment_num">评论最多</div></a>
+                <div class="order" style="display: none">{{ order }}</div>
+            </div>
+            <div class="topic_search">
+                <form action="{% url 'community:topic_search' %}">
+                    <div class="input_box">
+                        <input type="text" name="topic_search" id="topic_search"  placeholder="寻找话题" required="required">
+                        <button  type="submit" id="topic_search_button"><i class="icon-sousuo iconfont circle_hover"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    <div class="community_box">
+        <div class="container">
+            <div class="community_detail">
+                <div class="community_left">
+                    <div class="community_class">
+                        <div class="community_class_title">帖子分类</div>
+                        <div class="community_class_name">
+                            <a href="{% url 'community:community' %}"><div class="community_class_list">社区首页</div></a>
+                            <a href="{% url 'community:topic_categry' '话题探讨' %}"><div class="community_class_list tantao">话题探讨</div></a>
+                            <a href="{% url 'community:topic_categry' '数据思维' %}"><div class="community_class_list siwei">数据思维</div></a>
+                            <a href="{% url 'community:topic_categry' '学习交流' %}"><div class="community_class_list jiaoliu">学习交流</div></a>
+                            <a href="{% url 'community:topic_categry' '经验之谈' %}"><div class="community_class_list jingyan">经验之谈</div></a>
+                            <a href="{% url 'community:topic_categry' '资源共享' %}"><div class="community_class_list gongxiang">资源共享</div></a>
+                            <a href="{% url 'community:topic_categry' '技术解惑' %}"><div class="community_class_list jishu">技术解惑</div></a>
+                            <a href="{% url 'community:topic_categry' '人工智能' %}"><div class="community_class_list zhineng">人工智能</div></a>
+                            <a href="{% url 'community:topic_categry' '茶余饭后' %}"><div class="community_class_list chayu">茶余饭后</div></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="community_right">
+                    {% if user.is_authenticated %}
+                        <a href="javascript:volid(0);"><div class="post_post">发表新帖</div></a>
+                    {% else %}
+                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}"><div class="post_post">发表新帖</div></a>
+                    {% endif %}
+                    
+                    <div class="hot_topic_box">
+                        <div class="topic_title">热门话题</div>
+                        <div class="topic_hot_show">
+                            {% for hot_topic in hot_topics %}
+                            <a href="{% url 'community:topic_detail' hot_topic.pk %}">
+                                <div class="topic_hot_list">
+                                    <i class="icon-hot iconfont"></i>
+                                    <p class="hot_topic_title">{{ hot_topic.topic_title }}</p>
+                                    
+                                </div>
+                            </a>
+                            {% endfor %}
+                           
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="community_mid">
+                    <div class="community_post">
+                        <div class="community_post_title">{{ category }}</div>
+                        <div class="community_post_list">
+                            {% for topic in page_of_topics %}
+                                <a href="{% url 'community:topic_detail' topic.pk %}">
+                                    <div class="community_post_box">
+                                        <div class="post_name">{{ topic.topic_title }}</div>
+                                        <div class="post_detail">
+                                            <div class="data_list"><i class="icon-wode iconfont"></i>{{ topic.author.username }}</div>
+                                            <div class="data_list"><i class="icon-fenlei iconfont"></i>{{ topic.category }}</div>
+                                            <div class="data_list"><i class="icon-daipingjia iconfont"></i>{% get_topiccomments_count topic %}</div>
+                                            <div class="data_list"><i class="icon-time1 iconfont"></i>{{ topic.created_time|date:"Y/m/d H:i:s" }}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            {% empty %}
+
+                            {% endfor %}
+                            
+                           
+
+                        </div>
+                        <!-- 分页器 -->
+                        <div class="page_cut_box">
+                            <!-- 判断是否有上一页 -->
+                            {% if page_of_topics.has_previous %}
+                                <a href="?page={{ page_of_topics.previous_page_number }}"><div class="page_num_list pre_or_next">上一页</div></a> 
+                            {% else %}
+                                <a href="javascript:void(0)"><div class="page_num_list pre_or_next">上一页</div></a>
+                            {% endif %}
+                            
+                            {% if left_has_more %}
+                                <a href="?page=1"><div class="page_num_list">1</div></a> 
+                                <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+                            {% endif %}
+
+                            {% for left_page in left_pages %}
+                                <a href="?page={{ left_page }}"><div class="page_num_list">{{ left_page }}</div></a> 
+                                
+                            {% endfor %}
+
+                            <a href="javascript:void(0)"><div class="page_num_list active">{{ current_page }}</div></a>
+
+                            {% for right_page in right_pages %}
+                                <a href="?page={{ right_page }}"><div class="page_num_list">{{ right_page }}</div></a> 
+                                
+                            {% endfor %}
+
+                            {% if right_has_more %}
+                                <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+                                <a href="?page={{ num_pages }}"><div class="page_num_list">{{ num_pages }}</div></a> 
+                                
+                            {% endif %}
+
+                            <!-- 判断是否有下一页 -->
+                            {% if page_of_topics.has_next %}
+                                <a href="?page={{ page_of_topics.next_page_number }}"><div class="page_num_list pre_or_next">下一页</div></a> 
+                            {% else %}
+                                <a href="javascript:void(0)"><div class="page_num_list pre_or_next">下一页</div></a>
+                            {% endif %}
+                            
+                        </div>
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- 评论弹出框 -->
+    {% if user.is_authenticated %}
+        <div class="pop" style="display: none;">
+            <div class="popback">
+            </div>
+            
+            <div class="popbox">
+                <div class="close_pop"><i class="icon-guanbi iconfont"></i></div>
+                <div class="topic_box">
+                    <form id='topic_form'  method="post" action="{% url 'community:topic_create' %}">
+                        {% csrf_token %}
+                        <div class="topic_category_box">
+                            <select name="category" id="topic_category">
+                                <option value ="话题探讨">话题探讨</option>
+                                <option value ="数据思维">数据思维</option>
+                                <option value="经验之谈">经验之谈</option>
+                                <option value="资源共享">资源共享</option>
+                                <option value="技术解惑">技术解惑</option>
+                                <option value="人工智能">人工智能</option>
+                                <option value="茶余饭后">茶余饭后</option>
+                            </select>
+                        </div>
+                        <input class="topic_title_input" name="topic_title" placeholder="标题" required="required">
+                        <div class="topic_content">
+                            {{ topicform.content }}
+                        </div>
+                        <button type="submit">发表话题</button>
+                        
+                    </form>   
+                </div> 
+                
+                
+                
+            </div>
+            
+        </div>
+    {% else %}    
+    {% endif %} 
+
+    {% include 'foot.html' %}
+
+
+
+
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script src="/static/js/cms.js"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript">
+        // 根据分类的不同，将侧边栏变成激活状态
+        $(function(){
+            $('.head').find('.community').addClass('active');
+            var category = $('.community_post_title').text()
+            var order = $('.order').text()
+            if(category == '话题探讨'){
+                $('.tantao').addClass('active');
+            }else if(category == '数据思维'){
+                $('.siwei').addClass('active');
+            }else if(category == '学习交流'){
+                $('.jiaoliu').addClass('active');
+            }else if(category == '经验之谈'){
+                $('.jingyan').addClass('active');
+            }else if(category == '资源共享'){
+                $('.gongxiang').addClass('active');
+            }else if(category == '技术解惑'){
+                $('.jishu').addClass('active');
+            }else if(category == '人工智能'){
+                $('.zhineng').addClass('active');
+            }else if(category == '茶余饭后'){
+                $('.chayu').addClass('active');
+            }  
+
+            if(order == 'created_time'){
+                $('.created_time').addClass('active');
+            }else if(order == 'read_num'){
+                $('.read_num').addClass('active');
+            }else if(order == 'comment_num'){
+                $('.comment_num').addClass('active');
+            }  
+
+
+
+        });
+
+        $(".post_post").click(function(){
+            $(".pop").css("display","block");
+        });
+    </script>
+
+</body>
+</html>

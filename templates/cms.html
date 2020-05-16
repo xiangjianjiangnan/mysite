@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CMS管理系统</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_f0jv6z88c8p.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			<div class="cms_left">
+				<div class="cms_user_box">
+					<div class="cms_user_head">
+						<a href="javascript:void(0)"><img src="/media/{{ user.profile.portrait }}"></a>
+					</div>
+				</div>
+				<div class="cms_left_list active">
+					<a href="{% url 'cms:cms' %}">
+						<i class="icon-shouye1 iconfont"></i>
+						<p>推荐展示</p>
+					</a>					
+				</div>
+			
+				<div class="cms_left_list">
+					<a href="{% url 'cms:recommend' %}">
+						<i class="icon-liuchengzhong iconfont"></i>
+						<p>推荐设置</p>
+					</a>			
+				</div>
+				
+			</div>
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">推荐展示</div>
+				</div>
+				<div class="right_content">
+					
+					<div class="class_title"><i class="icon-tuijian1 iconfont"></i>首页轮播图</div>
+					<div class="recommend_show_box">
+						<div class="recommend_list recommend_table">
+							<div class="recommend_show recommend_id">ID</div>
+							<div class="recommend_show recommend_title">文章标题</div>
+							<div class="recommend_show recommend_author">作者</div>
+							<div class="recommend_show recommend_time">推荐时间</div>
+						</div>
+						{% for home_banner in recommend11 %}
+							<div class="recommend_list">
+								<div class="recommend_show recommend_id">{{ home_banner.id }}</div>
+								<a href="{% url 'article:article_detail' home_banner.pk %}">
+									<div class="recommend_show recommend_title">{{ home_banner.article_title }}</div>
+								</a>
+								<div class="recommend_show recommend_author">{{ home_banner.author }}</div>
+								<div class="recommend_show recommend_time">{{ recommend_record11.recommend_time|date:"Y/m/d H:i:s" }}</div>
+							</div>
+							
+						{% endfor %}
+						
+						
+					</div>
+					<div class="class_title"><i class="icon-tuijian1 iconfont"></i>首页重点文章</div>
+					<div class="recommend_show_box">
+						<div class="recommend_list recommend_table">
+							<div class="recommend_show recommend_id">ID</div>
+							<div class="recommend_show recommend_title">文章标题</div>
+							<div class="recommend_show recommend_author">作者</div>
+							<div class="recommend_show recommend_time">推荐时间</div>
+						</div>
+						{% for key_article in recommend12 %}
+							<div class="recommend_list">
+								<div class="recommend_show recommend_id">{{ key_article.id }}</div>
+								<a href="{% url 'article:article_detail' key_article.pk %}">
+									<div class="recommend_show recommend_title">{{ key_article.article_title }}</div>
+								</a>
+								<div class="recommend_show recommend_author">{{ key_article.author }}</div>
+								<div class="recommend_show recommend_time">{{ recommend_record12.recommend_time|date:"Y/m/d H:i:s" }}</div>
+							</div>
+						{% endfor %}
+
+						
+					</div>
+					<div class="class_title"><i class="icon-tuijian1 iconfont"></i>首页文选推荐</div>
+					<div class="recommend_show_box">
+						<div class="recommend_list recommend_table">
+							<div class="recommend_show recommend_id">ID</div>
+							<div class="recommend_show recommend_title">文选标题</div>
+							<div class="recommend_show recommend_author">作者</div>
+							<div class="recommend_show recommend_time">推荐时间</div>
+						</div>
+						{% for key_anthology in recommend13 %}
+							<div class="recommend_list">
+								<div class="recommend_show recommend_id">{{ key_anthology.id }}</div>
+								<a href="{% url 'personal_center:public_author_articles' key_anthology.pk %}">
+									<div class="recommend_show recommend_title">{{ key_anthology.anthology_title }}</div>
+								</a>
+								<div class="recommend_show recommend_author">{{ key_anthology.author }}</div>
+								<div class="recommend_show recommend_time">{{ recommend_record13.recommend_time|date:"Y/m/d H:i:s" }}</div>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="class_title"><i class="icon-tuijian1 iconfont"></i>首页文章推荐</div>
+					<div class="recommend_show_box">
+						<div class="recommend_list recommend_table">
+							<div class="recommend_show recommend_id">ID</div>
+							<div class="recommend_show recommend_title">文章标题</div>
+							<div class="recommend_show recommend_author">作者</div>
+							<div class="recommend_show recommend_time">推荐时间</div>
+						</div>
+						{% for article in recommend14 %}
+							<div class="recommend_list">
+								<div class="recommend_show recommend_id">{{ article.id }}</div>
+								<a href="{% url 'article:article_detail' article.pk %}">
+									<div class="recommend_show recommend_title">{{ article.article_title }}</div>
+								</a>
+								<div class="recommend_show recommend_author">{{ article.author }}</div>
+								<div class="recommend_show recommend_time">{{ recommend_record14.recommend_time|date:"Y/m/d H:i:s" }}</div>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="class_title"><i class="icon-tuijian1 iconfont"></i>首页作者推荐</div>
+					<div class="anthology_show_author">
+						{% for author in recommend15 %}
+							<div class="recommend_author_box">
+								<a href="{% url 'personal_center:public_author_anthologys' author.pk %}">
+									<div class="author_img_show">
+										<img src="/media/{{ author.profile.portrait }}">
+									</div>
+								</a>
+								
+								<div class="anthology_title">
+									{{ author.username }}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+					<!-- <div class="class_title"><i class="icon-tuijian1 iconfont"></i>首页书籍推荐</div>
+					<div class="anthology_show_box">
+						<div class="anthology_con">
+							<div class="anthology_img_show">
+								<img src="/media/img/login1.jpg">
+								
+							</div>
+							<div class="anthology_title">
+								我是测试标题
+							</div>
+						</div>
+						<div class="anthology_con">
+							<div class="anthology_img_show">
+								<img src="/media/img/login1.jpg">
+								
+							</div>
+							<div class="anthology_title">
+								我是测试标题
+							</div>
+						</div>
+						<div class="anthology_con">
+							<div class="anthology_img_show">
+								<img src="/media/img/login1.jpg">
+								
+							</div>
+							<div class="anthology_title">
+								我是测试标题
+							</div>
+						</div>
+						<div class="anthology_con">
+							<div class="anthology_img_show">
+								<img src="/media/img/login1.jpg">
+								
+							</div>
+							<div class="anthology_title">
+								我是测试标题
+							</div>
+						</div>
+					</div> -->
+					<div class="class_title"><i class="icon-tuijian1 iconfont"></i>首页教程推荐</div>
+					<div class="recommend_show_box">
+						<div class="recommend_list recommend_table">
+							<div class="recommend_show recommend_id">ID</div>
+							<div class="recommend_show recommend_title">教程标题</div>
+							<div class="recommend_show recommend_author">作者</div>
+							<div class="recommend_show recommend_time">推荐时间</div>
+						</div>
+						{% for course in recommend16 %}
+							<div class="recommend_list">
+								<div class="recommend_show recommend_id">{{ course.id }}</div>
+								<a href="{% url 'personal_center:public_author_articles' course.pk %}">
+									<div class="recommend_show recommend_title">{{ course.anthology_title }}</div>
+								</a>
+								<div class="recommend_show recommend_author">{{ course.author }}</div>
+								<div class="recommend_show recommend_time">{{ recommend_record16.recommend_time|date:"Y/m/d H:i:s" }}</div>
+							</div>
+						{% endfor %}
+					</div>
+
+					
+						
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+</body>
+</html>

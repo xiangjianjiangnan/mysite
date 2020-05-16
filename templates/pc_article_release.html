@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html style="scrollbar-base-color:red;">
+{% load staticfiles %}
+{% load functions_tags %}
+<head>
+	<title>文章发布</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			{% include 'cms_left.html' %}
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">文章</div>
+				</div>
+				<div class="right_content">
+					
+					<div class="article_release_box">
+						<form action="{% url 'personal_center:article_create' %}" method="post" id="article_form" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="content_other">
+								<div class="articletitle_box">
+									<input  id="article_title" name="article_title" placeholder="标题(50字以内)" required="required" maxlength="50">
+								</div>
+								<div class="right_content_left">
+									<div class="img_show">
+										<img id="cover_img" src="#">
+										<div class="icon-tianjia iconfont"></div>
+										<input type="file" name="article_cover" id="cover_input" accept="image/jpg,image/jpeg,image/png,image/PNG" onchange="articlecover(this)">
+										<div class="img_tip">上传文章封面 : 826×450（单位：px）</div>
+									</div>
+									
+								</div>
+								<div class="right_content_right">
+									<div class="input_box">
+										<div class="select_box">
+											<div class="select_tip">
+												<i class="icon-book_icon iconfont"></i>
+												文选：
+											</div>
+											<div class="select_input">
+												<select name="anthology" id="anthology">
+													{% for anthology in anthologys %}
+													<option value ="{{ anthology.anthology_title }}">{{ anthology.anthology_title }}</option>
+													{% endfor %}
+												</select>
+											</div>
+											
+										</div>
+										<div class="select_box select_right">
+											<div class="select_tip">
+												<i class="icon-fenlei iconfont"></i>
+												分类：
+											</div>
+											<div class="select_input">
+												<select name="category" id="category">
+													<option value ="数据思维">数据思维</option>
+													<option value ="数据获取">数据获取</option>
+													<option value="数据处理">数据处理</option>
+													<option value="数据分析">数据分析</option>
+													<option value="数据可视化">数据可视化</option>
+													<option value="数据报告">数据报告</option>
+													<option value="人工智能">人工智能</option>
+													<option value="面试题">面试题</option>
+													{% if user.is_staff %}
+													    <option value="资讯">资讯</option>
+													{% endif %}
+													<option value="其他">其他</option>
+												</select>
+											</div>
+											
+										</div>
+										
+										<!-- <input  id="article_title" name="article_title" placeholder="标题" required="required"> -->
+										<textarea id="summary" name="summary" rows="6" placeholder="摘要" required="required" maxlength="200"></textarea>
+										<!-- <button type="submit">创建</button> -->
+									</div>
+								</div>
+							</div>
+							
+							<div class="content_input">
+								{{ articleform.content }}
+								<!-- <textarea id="content" name="content" rows="10" placeholder="正文" required="required"></textarea> -->
+								<button type="submit">发布文章</button>
+							</div>
+							
+						</form>
+					</div>
+
+					
+					
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script src="/static/js/cms.js"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		$('#cms_left_article').addClass('active');
+    	})
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!-- 这是个人页面左侧边栏的html -->
+
+<div class="cms_left">
+	<div class="cms_user_box">
+		<div class="cms_user_head">
+			<a href="javascript:void(0)"><img src="/media/{{ user.profile.portrait }}"></a>
+		</div>
+	</div>
+	<div class="cms_left_list" id="cms_left_home">
+		<a href="{% url 'personal_center:personal_center_home' %}">
+			<i class="icon-shouye1 iconfont"></i>
+			<p>首页</p>
+		</a>					
+	</div>
+	<div class="cms_left_list" id="cms_left_anthology">
+		<a href="{% url 'personal_center:anthology_release' %}">
+			<i class="icon-yewu iconfont"></i>
+			<p>文选</p>
+		</a>				
+	</div>
+	<div class="cms_left_list" id="cms_left_article">
+		<a href="{% url 'personal_center:article_release' %}">
+			<i class="icon-wenjian iconfont"></i>
+			<p>文章</p>
+		</a>				
+	</div>
+	<div class="cms_left_list" id="cms_left_topic">
+		<a href="{% url 'personal_center:topic_show' %}">
+			<i class="icon-biaoqian iconfont"></i>
+			<p>帖子</p>
+		</a>				
+	</div>
+	<div class="cms_left_list" id="cms_left_fans">
+		<a href="{% url 'personal_center:fans_show' %}">
+			<i class="icon-fensi iconfont"></i>
+			<p>粉丝</p>
+		</a>				
+	</div>
+	<div class="cms_left_list" id="cms_left_follow">
+		<a href="{% url 'personal_center:follow_show' %}">
+			<i class="icon-xihuan iconfont"></i>
+			<p>关注的人</p>
+		</a>				
+	</div>
+	<div class="cms_left_list" id="cms_left_information">
+		<a href="{% url 'personal_center:information' %}">
+			<i class="icon-yonghu iconfont"></i>
+			<p>个人资料</p>
+		</a>				
+	</div>
+</div>

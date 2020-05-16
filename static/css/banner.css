@@ -1,0 +1,148 @@
+.banner_box {
+    width: 40%;
+    height: 257px;
+    margin: 10px 0;
+    float: left;
+}
+
+
+
+.banner_group {
+    width: 100%;
+    height: 100%;
+    /*background: #ccc;*/
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    
+}
+
+.banner_group #banner_ul {
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+}
+
+.banner_group #banner_ul li {
+    height: 100%;
+    list-style: none;
+    float: left;
+
+}
+
+.banner_group #banner_ul li .banner_title {
+    position: absolute;
+    bottom: 0;
+    height: 32px;
+    width: 100%;
+/*    padding-right: 150px; 
+    padding-left: 20px;*/
+    font-size: 14px;
+    color: #fff;
+    line-height: 32px;
+    background: linear-gradient(to top, rgba(0,0,0,0.2), rgba(0,0,0,0));
+    /*border-radius: 15px;*/
+    padding: 0 150px 0 20px;
+    overflow: hidden;
+    letter-spacing: 1px;/*字体间距*/
+
+}
+
+.banner_group #banner_ul li a img {
+    width: 100%;
+    height: 100%;
+}
+
+/*轮播图箭头样式设置*/
+.banner_group .arrow {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    position: absolute;
+    top:42.5%;
+    cursor: pointer;
+    display: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.3);
+}
+
+.banner_group .arrow i {
+    position: absolute;
+    top: 3px;
+    
+    text-align: center;
+    font-size: 40px;
+    color: #fff;
+       
+}
+
+.banner_group:hover .arrow {
+    display: block;
+}
+
+
+.banner_group .left_arrow {
+    left: 10px;
+}
+
+.banner_group .left_arrow .icon-shangyiye {
+    left: 3px;
+}
+
+.banner_group .right_arrow {
+    right: 10px;
+}
+
+.banner_group .right_arrow .icon-xiayiye {
+    left: 7px;
+}
+
+/*轮播图底部的点点点样式*/
+.page_control_group {
+    width: 100%;
+    height: 32px;
+    position: absolute;
+    bottom: 0;
+    
+}
+
+.page_control_group .page_box {
+    width: 130px;
+    height: 100%;
+    float: right;
+    margin-right: 14px;
+    position: relative;
+}
+
+.page_control_group #page_control {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+    position: absolute;
+    /*padding-right: 20px;*/
+    /*top: 10px;*/
+}
+
+.page_control_group #page_control li {
+    width: 12px;
+    height: 12px;
+    margin: 10px 5px;
+    background: #fff;
+    /*background: center center no-repeat;*/
+    /*background-size: auto 100%;*/
+    /*border: 2px solid #fff;*/
+    border-radius: 6px;
+    /*margin: 7px;*/
+    list-style: none;
+    float: left;
+    /*box-sizing: border-box;*/
+    cursor: pointer;
+}
+
+
+.page_control_group #page_control .active {
+    /*border: 2px solid rgb(238,77,89);*/
+    background: rgb(238,77,89);
+    width: 26px;
+}

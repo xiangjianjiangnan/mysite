@@ -1,0 +1,847 @@
+/*标签的关系层数不能超过三层，层数过多修改的时候容易出现错误*/
+
+/*body {
+    background: rgb(244,245,247);
+}*/
+
+.back_set {
+    width: 100%;
+    height: 100%;
+    /*position: fixed;*/
+    /*z-index: 0;*/
+    /*background: rgba(255,193,193,0.5);*/
+    /*margin-top: 70px;*/
+}
+
+.article_width {
+    width: 826px;
+    /*margin: 0 177px;*/
+    /*float: right;*/
+    background: #fff;
+    /*padding: 0 25px;*/
+}
+
+
+
+
+
+.article_box1 {
+    width: 100%;
+    overflow: hidden;
+}
+
+.article_box2 {
+    width: 100%;
+    padding-top: 540px;
+    
+    /*margin-top: 20px;*/
+}
+
+.article_box2 .container {
+    position: relative;
+}
+
+ .right_bar {
+    position: absolute;
+    width: 326px;
+    left: 853px;
+    top: -470px;
+
+}
+
+.right_bar .auth_box {
+    width: 100%;
+    box-shadow: 0 0 2px #DCDCDC;
+    border-radius: 4px;
+    padding: 10px;
+    box-sizing: border-box;
+    background: rgb(252,252,252);
+    /*position: relative;*/
+}
+
+
+
+.right_bar .auth_box .auth_detail1 {
+    width: 100%;
+    height: 70px;
+}
+
+.right_bar .auth_box .auth_head {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    /*background: #ccc;*/
+    overflow: hidden;
+    float: left;
+}
+
+.right_bar .auth_box .auth_head_right {
+    width: 236px;
+    height: 70px;
+    float: left;
+    /*background: #ccc;*/
+}
+
+.right_bar .auth_box .auth_name {
+    height: 28px;
+    padding: 10px 0 0 20px;
+    overflow: hidden;
+}
+
+.right_bar .auth_box .auth_follow {
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    padding-left: 20px;
+    /*background: #ccc;*/
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.right_bar .auth_follow .follow_button {
+    /*width: 50px;*/
+    height: 24px;
+    line-height: 24px;
+    background: rgb(238,77,89);
+    text-align: center;
+    font-family: 微软雅黑;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 0 10px;
+    display: inline-block;
+    cursor: pointer;
+
+}
+
+
+
+
+
+.right_bar .auth_name a {
+    height: 100%;
+    /*padding: 0 10px;*/
+    /*margin-top: 20px;*/
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;/*字体加粗*/
+    font-family: 微软雅黑;
+}
+
+.right_bar .auth_head img {
+    width: 100%;
+    min-height: 70px;
+    transition: all 0.8s;
+}
+
+.right_bar .auth_head img:hover {
+    transform: scale(1.05);/*将图片放到到原来的1.05倍*/
+}
+
+.right_bar .auth_box .auth_detail2 {
+    width: 100%;
+    height: 50px;
+    margin-top: 15px;
+    /*background: #ccc;*/
+    border-bottom: 1px solid #DCDCDC;
+}
+
+.right_bar .auth_box .auth_num {
+    width: 100%;
+
+    height: 50px;
+    /*line-height: 20px;*/
+    font-size: 8px;
+    /*padding: 10px 0 0 20px;*/
+}
+
+.right_bar .auth_num .num_box {
+    width: 25%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    position: relative;
+}
+
+.right_bar  .auth_num p.num_tip {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 13px;
+    /*background: #ccc;*/
+    margin-top: 4px;
+}
+
+.right_bar  .auth_num  p.arrow_box {
+    width: 100%;
+    height: 10px;
+    line-height: 10px;
+    text-align: center;
+    /*background: #ccc;*/
+    /*overflow: hidden;*/
+    /*position: relative;*/
+}
+
+.right_bar .auth_num p.arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #ff7588;
+    display: inline-block;
+    position: absolute;
+    top: 17px;
+    left: 33px;
+}
+
+.right_bar .auth_num p.num {
+    width: auto;
+    min-width: 30px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    margin: -3px 0;
+    padding: 0 4px;
+    background: #ff7588;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    font-size: 12px;
+    border: none;
+    z-index: 1;
+}
+
+.right_bar .auth_box .auth_detail3 {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.right_bar .auth_detail3 a {
+    width: 100%;
+    height: 30px;
+}
+
+
+
+.right_bar .auth_detail3 .article_list {
+    width: 100%;
+    margin: 1px 0;
+    height: 28px;
+}
+
+.right_bar .article_list i {
+    width: 8%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    line-height: 28px;
+    color: rgb(238,77,89);
+}
+
+.right_bar .article_list p {
+    width: 92%;
+    height: 100%;
+    float: left;
+    font-size: 14px;
+    color: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    line-height: 28px;
+    padding-left: 5px;
+    box-sizing: border-box;
+    transition: all 0.6s;
+}
+
+.right_bar .article_list p:hover {
+    padding-left: 10px;
+    background: #e3e3e3;
+}
+
+.right_bar .advertisement {
+    width: 100%;
+    margin-top: 20px;
+    /*overflow: hidden;*/
+
+}
+
+.right_bar .advertisement .advertisement_img {
+    width: 100%;
+    height: 177px;
+    box-shadow: 0 0 2px #DCDCDC;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: rgb(252,252,252);
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.right_bar .advertisement_img img {
+    width: 100%;
+    min-height: 177px;
+}
+
+
+.article_box1 .cover_box {
+    /*height: 540px;*/
+    /*position: relative;*/
+    z-index: 10;
+    /*overflow: hidden;*/
+}
+
+.article_box1 .left_circle {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #fff;
+    left: -90px;
+    border: 1px solid #DCDCDC;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 52px;
+    cursor: pointer;
+    transition: left 0.6s;
+
+}
+
+.left_hover_tag { 
+    background: #fff;
+    height: 52px;
+    width: 100px;
+    text-align: center;
+    line-height: 52px;
+}
+
+.article_box1 .left_circle:hover {
+    left: -82px;
+    border: 1px solid rgb(238,77,89);
+}
+
+.article_box1 .left_circle:hover .circle_hover {
+    color: rgb(238,77,89);
+}
+
+
+
+
+.article_box1 .left_circle i {
+    font-size: 22px;
+    color: #888;
+    font-family: 微软雅黑;
+}
+
+.article_box1 .left_circle .pure {
+    font-size: 18px;
+    color: #888;
+    font-family: 微软雅黑;
+}
+
+.article_box1 .left_circle .reward {
+    font-size: 18px;
+    color: #888;
+    font-family: 微软雅黑;
+}
+
+/*喜欢、收藏按钮被激活后的状态显示*/
+.article_box1 .active {
+    border: 1px solid rgb(238,77,89);
+}
+
+
+.article_box1 .active .circle_hover {
+    color: rgb(238,77,89);
+}
+
+.article_box1 .left_circle .active {
+    color: rgb(238,77,89);
+    
+}
+
+.article_box1 .circle_0 {
+    top: 0;
+}
+
+.article_box1 .circle_1 {
+    top: 70px;
+}
+
+.article_box1 .circle_2 {
+    top: 140px;
+}
+
+.article_box1 .circle_3 {
+    top: 210px;
+}
+
+.article_box1 .cover_box .cover {
+    width: 826px;
+    height: 450px;
+    position: fixed;
+    top: 70px;
+    background: #fff;
+    
+}
+
+
+.article_box1 .cover .img_box {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.cover .img_box img {
+    width: 100%;
+    min-height: 450px;
+}
+
+.article_box2 .detail_box {
+    position: relative;
+    z-index: 50;
+    overflow: hidden;
+}
+
+.article_box2 .detail_box .note {
+    width: 100%;
+    min-height: 15px;
+}
+
+.article_box2 .detail_box .title_box {
+    height: 46px;
+    border: none;
+}
+
+/*.title_box .title_icon {
+    float: left;
+    height: 100%;
+    width: 30px;
+    border: none;
+}*/
+
+.detail_box .icon-jiaobiao {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    border: none;
+    font-size: 25px;
+    color: #fc4a00;
+}
+
+.title_box .title {
+    float: left;
+    height: 46px;
+    line-height: 46px;
+    background: #fff;
+    font-size: 30px;
+    font-weight: 900;
+    color: #444;
+}
+
+
+
+
+/*.article_box2 .detail_box .title{
+    height: 46px;
+    line-height: 46px;
+    background: #fff;
+    border-left: 5px solid #FF7F00;
+    padding-left: 10px;
+    font-size: 30px;
+    font-weight: 900;
+    color: #444;
+}*/
+
+.article_box2 .detail_box .person {
+    width: 100%;
+    height: 36px;
+    margin-top: 10px;
+}
+
+
+.person .person_head {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+}
+
+.person .person_head img {
+    width: 100%;
+}
+
+.person .person_name{
+    margin-left: 10px;
+/*    border: 1px solid rgb(238,77,89);
+    border-radius: 5px;*/
+    padding: 0 5px;
+    /*height: */
+}
+
+.person .person_name a {
+    font-size: 16px;
+    font-weight: 900;
+    /*color: #f06065;*/
+}
+
+.person .person_list {
+    height: 36px;
+    line-height: 36px;
+    margin-right: 16px;
+    float: left;
+    font-size: 15px;
+    color: #222;
+    overflow: hidden;
+}
+
+/*.person .person_list .article_data {
+    height: 30px;
+    line-height: 30px;
+}*/
+
+.person i {
+    font-size: 17px;
+    margin: 10px 5px 0 0;
+}
+
+.person a {
+    font-size: 15px;
+    color: #222;
+}
+
+.detail_box .tags {
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.detail_box .tags .tag {
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(238, 77, 89);
+    float: left;
+    margin: 5px 15px 0 0;
+    color: rgb(238, 77, 89);
+    font-size: 14px;
+    padding: 0 8px;
+}
+
+.detail_box .tags .tag:hover {
+    background: rgb(238, 77, 89);
+    color: #fff;
+}
+
+.content_box{
+    padding: 20px 0 50px 0;
+    position: relative;
+    z-index: 50;
+    overflow: hidden;
+    
+}
+
+.content_box p {
+    margin-top: 10px;
+    line-height: 30px;
+    color: #333;
+}
+
+.content_box img {
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.comment_box {
+    padding: 20px 0 50px 0;
+}
+
+.comment_box .comment_tag {
+    font-size: 18px;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.comment_box .comment_input {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    /*border-bottom: 1px solid #ccc;*/
+
+}
+
+.comment_box .comment_input .comment_people {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    float: left;
+    /*background: #ccc;*/
+    overflow: hidden;
+    text-align:center;
+    line-height: 60px;
+}
+
+.comment_box .comment_people i {
+    font-size: 30px;
+    color: #fff;
+}
+
+.comment_box .comment_people img {
+    width: 100%;
+    height: 100%;
+}
+
+.comment_box .comment_input textarea {
+    width: 82%;
+    float: left;
+    resize: none;
+    outline: none;
+    font-size: 15px;
+    border: 1px solid #C2C2C2;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    font-family: 微软雅黑;
+    margin-left: 20px;
+}
+
+.comment_box .comment_input button {
+    float: right;
+    width: 60px;
+    height: 60px;
+    font-size: 15px;
+    color: #fff;
+    font-family: 微软雅黑;
+    background: rgb(238,77,89);
+    cursor: pointer;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    border-radius: 4px;
+    /*margin-top: 20px;*/
+    letter-spacing: 2px;/*字体间距*/
+}
+
+.comment_box .comment_list {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.comment_box .comment_list .parent_comment {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.comment_box .comment_list .person_comment_box {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 0 10px 0;
+    overflow: hidden;
+    /*border-bottom: 1px solid #ccc;*/
+}
+
+
+.comment_box .person_comment_box .person_head {
+    width: 60px;
+    float: left;
+    box-sizing: border-box;
+}
+
+
+.comment_box .person_head .person_head_img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.comment_box .person_head_img img {
+    width: 100%;
+    height: 100%；
+}
+
+.comment_box .person_comment_box .person_comment {
+    width: 746px;
+    float: right;
+    border-bottom: 1px solid #D3D3D3;
+    box-sizing: border-box;
+    margin: 0 0 14px 20px;
+}
+
+.comment_box .person_comment .person_comment_name {
+    height: 30px;
+    width: 100%;
+    /*background: #ccc;*/
+}
+
+.comment_box .person_comment_name .comment_name  {
+    font-size: 15px;
+    color: #6d757a;
+    font-family: 微软雅黑;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.comment_box .person_comment_name .comment_name:hover {
+    color: #fb7299;
+}
+
+
+.comment_box .person_comment .person_comment_content {
+    /*height: 50px;*/
+    width: 100%;
+    /*background: #ccc;*/
+    line-height: 26px;
+    font-size: 15px;
+    color: #333;
+}
+
+.comment_box .person_comment .person_comment_detail {
+    height: 26px;
+    width: 100%;  
+    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
+}
+
+.comment_box .person_comment .comment_detail_list {
+    line-height: 26px;
+    font-size: 13px;
+    color: #B1B1B1;
+    float: left;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.comment_box .person_comment .comment_detail_hover:hover {
+    color: #fb7299;
+}
+
+.comment_box .person_comment .left_circle:hover {
+    color: rgb(238,77,89);
+}
+
+.comment_box .person_comment .comment_detail_list i {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.comment_box .person_comment .active {
+    color: rgb(238,77,89);
+}
+
+.comment_box .children_comment {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.comment_box .children_comment .children_comment_data {
+    width: 100%;
+    height: 30px;
+    /*background: #ccc;*/
+}
+
+.comment_box .children_comment .children_comment_detail {
+    padding-left: 40px;
+}
+
+.comment_box .children_comment .children_float {
+    float: left;
+}
+
+.comment_box .children_comment .children_comment_head {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.comment_box .children_comment .children_comment_head img {
+    width: 100%;
+    height: 100%;
+}
+
+.comment_box .children_comment .children_comment_name {
+    height: 30px;
+    font-size: 15px;
+    color: #6d757a;
+    font-family: 微软雅黑;
+    font-weight: bold;
+    line-height: 30px;
+
+}
+
+.comment_box .children_comment .children_comment_name:hover {
+    color: #fb7299;
+}
+
+.comment_box .children_comment p {
+    float: left;
+    font-size: 15px;
+    line-height: 30px;
+    font-family: 微软雅黑;
+    padding-left: 10px;
+}
+
+/*.comment_box .children_comment .children_comment_name a {
+    font-size: 15px;
+    color: #6d757a;
+    font-family: 微软雅黑;
+    font-weight: bold;
+    line-height: 30px;
+}*/
+
+/*.comment_box .children_comment .children_comment_name a:hover {
+    color: #fb7299;
+}*/
+
+.comment_box .children_comment .children_comment_content {
+    /*height: 30px;*/
+    /*width: 100%;*/
+    /*background: #ccc;*/
+    line-height: 30px;
+    font-size: 15px;
+    color: #333;
+    padding-left: 10px;
+}
+
+
+.comment_box .page_cut_box {
+    height: 28px;
+    margin-top: 20px;
+    float: right;
+    margin-bottom: 50px;
+}
+
+.comment_box .page_cut_box .page_num_list {
+    float: left;
+    height: 28px;
+    min-width: 30px;
+    background: #fff;
+    color: rgb(238,77,89);
+    text-align: center;
+    line-height: 26px;
+    border-radius: 6px;
+    border: 1px solid rgb(238,77,89);
+    margin: 0 2px;
+    font-size: 12px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.comment_box .page_cut_box .active {
+    background: rgb(238,77,89);
+    color: #fff;
+}
+
+.comment_box .page_cut_box .pre_or_next {
+    width: 50px;
+}

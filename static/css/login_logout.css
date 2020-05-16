@@ -1,0 +1,325 @@
+body {
+    /*background: rgb(244,245,247);*/
+    background: rgb(255,222,219);
+}
+
+* { 
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration:none;
+    color: #333;
+}
+
+input {
+    outline: none;
+}
+
+button {
+    outline: none;
+}
+
+.head {
+    background: none;
+}
+.container {
+    width: 1180px;
+    margin: 0 auto;
+}
+
+
+.login_box {
+    position: fixed;
+    width: 100%;
+    min-width: 1180px;
+    height: 100%;
+    /*margin-top: 50px;*/
+    /*padding-top: 70px;*/
+    /*background: rgb(218,198,186);*/
+    background: center center no-repeat;
+    background-image: url(/media/img/login_back4.png);
+
+    /*background-size:100% 100%;*/
+}
+
+.head_box {
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+}
+
+.xiegang {
+    float: right;
+    line-height: 50px;
+    padding: 0 5px;
+    color: #E4E4E4;
+}
+
+.head_list {
+    line-height: 50px;
+    float: right;
+    padding: 0 5px;
+}
+
+.head_list:hover {
+    color: rgb(238,77,89);
+} 
+
+.login_left {
+    width: 750px;
+    height: 350px;
+    margin-top: 120px;
+    float: left;
+    overflow: hidden;
+    padding-top: 150px;
+    background-repeat: no-repeat;
+    background-position: center 0;
+    background-size: cover;
+    background-image: url(/media/img/login1.png);
+}
+
+.login_left .biaoyu1 {
+    width: 100%;
+    height: 60px;
+    /*border-left: 6px solid rgb(238,77,89);*/
+    /*color: rgb(248,72,106);*/
+    color: #333;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 60px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.login_left .biaoyu2 {
+    width: auto;
+    height: 30px;
+    display: inline-block;
+    /*border-left: 6px solid rgb(238,77,89);*/
+    /*color: rgb(248,72,106);*/
+    color: #333;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    /*background: rgb(238,77,89);*/
+    overflow: hidden;
+    /*border-radius: 4px;*/
+}
+
+.login_right {
+    width: 420px;
+    height: 500px;
+    margin-top: 120px;
+    border-radius: 6px;
+    float: right;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 5px #E4E4E4;
+}
+
+.login_right .welcome {
+    width: 100%;
+    height: 100px;
+    border-bottom: 2px solid rgb(238,77,89);
+    /*background: pink;*/
+    line-height: 100px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(238,77,89);
+    letter-spacing: 3px;/*字体间距*/
+    box-sizing: border-box;
+}
+
+.login_right .welcome img {
+    /*width: 100%;*/
+    height: 100%;
+}
+
+.login_right .login_input {
+    width: 100%;
+    height: 400px;
+}
+
+.login_right .log_content {
+    margin: 0 15%;
+    width: 70%;
+    
+}
+
+.login_right .message {
+    height: 65px;
+    width: 100%;
+    line-height: 65px;
+    font-size: 14px;
+    color: rgb(238,77,89);
+}
+
+.login_right .message i {
+    margin-right: 6px;
+}
+
+.login_right .content_list {
+    width: 100%;
+    height: 65px;
+}
+
+.login_right .content_list input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid rgb(238,77,89);
+    border-radius: 4px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+
+
+.login_right .content_list button {
+    outline: none;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: rgb(238,77,89);
+    border: 1px solid rgb(238,77,89);
+    color: #fff;
+    letter-spacing:2px;/*字体间距*/
+}
+
+.login_right #img_captcha {
+    width: 70%;
+    float: left;
+}
+
+.login_right .verif_code {
+    width: 80px;
+    float: right;
+    height: 40px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.login_right .content_list2 {
+    height: 20px;
+    width: 70px;
+    float: left;
+}
+
+.login_right .content_list2 p {
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+    float: left;
+    margin: 0 0 0 5px;
+    color: #333;
+}
+
+.login_right #remember {
+    width: 18px;
+    height: 18px;
+    float: left;
+}
+
+.login_right .content_list3 {
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    float: right;
+    margin-left: 20px;
+}
+
+.login_right .content_list3 a:hover {
+    color: rgb(238,77,89);
+}
+
+
+
+.login_right .content_list4 {
+    width: 100%;
+    height: 130px;
+}
+
+
+.login_right .content_list4 .process {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+
+
+
+.content_list4 .process .process_top {
+    width: 41px;
+    height: 41px;
+    margin: 12px 16px;
+    border-radius: 50%;
+    background: rgb(204,204,204);
+    text-align: center;
+    line-height: 41px;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.content_list4 .process .process_bottom {
+    width: 100%;
+    height: 50%;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    color: rgb(153,153,153);
+}
+
+
+.login_right .content_list4 .process.active .process_top {
+    background: rgb(238,77,89);
+}
+
+.login_right .content_list4 .process.active .process_bottom {
+    color: rgb(238,77,89);
+}
+
+.content_list .content_tip {
+    font-size: 14px;
+    line-height: 50px;
+}
+
+.content_list .content_tip2 {
+    font-size: 14px;
+    line-height: 50px;
+    text-align: center;
+    letter-spacing:1px;/*字体间距*/
+}
+
+.content_list .content_tip2 p {
+    float: left;
+    
+    letter-spacing:1px;/*字体间距*/
+}
+
+.content_list .content_tip2 p#timer {
+    margin: 0 5px 0 60px;
+    color: rgb(238,77,89);
+    font-weight: 700;
+}
+
+.content_list .jump_to {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: rgb(238,77,89);
+    color: #fff;
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 40px;
+}

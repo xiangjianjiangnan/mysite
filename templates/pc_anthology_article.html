@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html style="scrollbar-base-color:red;">
+{% load staticfiles %}
+{% load functions_tags %}
+<head>
+	<title>文章</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			{% include 'cms_left.html' %}
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">文选：{{ anthology.anthology_title }}</div>
+				</div>
+				<div class="right_content">
+					
+					<div class="anthology_detail_box">
+						<div class="article_list_box">
+
+							<div class="article_cover">
+								<img src="/media/{{ anthology.anthology_cover }}">	
+							</div>
+							<div class="article_detail">
+								<div class="detail_1"><a href="javascript:volid(0);">{{ anthology.anthology_title }}</a></div>
+								<div class="detail_2">{{ anthology.anthology_describe|striptags|truncatechars:90 }}</div>
+								<div class="detail_3">
+									<div class="data_list"><i class="icon-time1 iconfont"></i>  {{ anthology.created_time|date:"Y/m/d" }}</div>
+									<div class="data_list"><i class="icon-wenjian iconfont"></i>  {{ count }} 篇</div>
+									
+									<form action="{% url 'personal_center:anthology_delete' %}" method="GET" class="anthology_delete">
+										{% csrf_token %}
+										<input type="hidden" name="anthology_id" value="{{ anthology.pk }}">
+										<button type="submit" class="data_list revise"><i class="icon-shanchu iconfont"></i>  删除</button>
+
+									</form>
+									<form action="{% url 'personal_center:anthology_change' %}" method="GET" >
+										{% csrf_token %}
+										<input type="hidden" name="anthology_id2" value="{{ anthology.pk }}">
+										<button type="submit" class="data_list revise"><i class="icon-bianji iconfont"></i>  修改</button>
+
+									</form>
+									<!-- <a href="#"><div class="data_list revise article_revise"><i class="icon-bianji iconfont"></i>  修改</div></a> -->
+									
+								</div>
+								<div class="tips" style="display: none;"><i class="icon-jinggao iconfont"></i>删除文选，关联文章也会一并删除</div>
+							</div>
+						</div>
+						
+					</div>
+					{% for article in page_of_articles %}
+					<div class="article_list_box">
+
+						<div class="article_cover">
+							<a href="{% url 'article:article_detail' article.pk %}"><img src="/media/{{ article.article_cover }}"></a>	
+						</div>
+						<div class="article_detail">
+							<div class="detail_1"><a href="{% url 'article:article_detail' article.pk %}">{{ article.article_title }}</a></div>
+							<div class="detail_2">{{ article.summary|striptags|truncatechars:90 }}</div>
+							<!-- <div class="detail_2 detail_list">{{ article.summary|striptags|truncatechars:90 }}</div> -->
+							<div class="detail_3">
+								<div class="data_list"><i class="icon-time1 iconfont"></i>{{ article.created_time|date:"Y/m/d H:i:s" }}</div>
+								<div class="data_list"><i class="icon-xihuan iconfont"></i>{% get_article_likes_count article %}</div>
+								<div class="data_list"><i class="icon-shoucang iconfont"></i>{% get_article_collects_count article %}</div>
+								<div class="data_list"><i class="icon-daipingjia iconfont"></i>{% get_article_comments_count article %}</div>
+								<!-- <a href="#"><div class="data_list revise article_delete"><i class="icon-shanchu iconfont"></i>  删除</div></a> -->
+								<form action="{% url 'personal_center:article_delete' %}" method="GET">
+									{% csrf_token %}
+									<input type="hidden" name="article_id" value="{{ article.pk }}">
+									<button type="submit" class="data_list revise"><i class="icon-shanchu iconfont"></i>  删除</button>
+								</form>
+								<form action="{% url 'personal_center:article_change' %}" method="GET" >
+									{% csrf_token %}
+									<input type="hidden" name="article_id2" value="{{ article.pk }}">
+									<button type="submit" class="data_list revise"><i class="icon-bianji iconfont"></i>  修改</button>
+
+								</form>
+								<!-- <a href="#"><div class="data_list revise article_revise"><i class="icon-bianji iconfont"></i>  修改</div></a> -->
+								
+								
+							</div>
+							
+						</div>
+					</div>
+					{% endfor %}
+
+					<!-- 分页器 -->
+					<div class="page_cut_box">
+					    <!-- 判断是否有上一页 -->
+					    {% if page_of_articles.has_previous %}
+					        <a href="?page={{ page_of_articles.previous_page_number }}"><div class="page_num_list pre_or_next">上一页</div></a> 
+					    {% else %}
+					        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">上一页</div></a>
+					    {% endif %}
+					    
+					    {% if left_has_more %}
+					        <a href="?page=1"><div class="page_num_list">1</div></a> 
+					        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+					    {% endif %}
+
+					    {% for left_page in left_pages %}
+					        <a href="?page={{ left_page }}"><div class="page_num_list">{{ left_page }}</div></a> 
+					        
+					    {% endfor %}
+
+					    <a href="javascript:void(0)"><div class="page_num_list active">{{ current_page }}</div></a>
+
+					    {% for right_page in right_pages %}
+					        <a href="?page={{ right_page }}"><div class="page_num_list">{{ right_page }}</div></a> 
+					        
+					    {% endfor %}
+
+					    {% if right_has_more %}
+					        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+					        <a href="?page={{ num_pages }}"><div class="page_num_list">{{ num_pages }}</div></a> 
+					        
+					    {% endif %}
+
+					    <!-- 判断是否有下一页 -->
+					    {% if page_of_articles.has_next %}
+					        <a href="?page={{ page_of_articles.next_page_number }}"><div class="page_num_list pre_or_next">下一页</div></a> 
+					    {% else %}
+					        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">下一页</div></a>
+					    {% endif %}
+					    
+					</div>
+					
+				</div>
+				
+				
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script src="/static/js/cms.js"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		$('#cms_left_anthology').addClass('active');
+    	})
+    </script>
+
+</body>
+</html>

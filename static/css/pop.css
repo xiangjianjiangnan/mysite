@@ -1,0 +1,140 @@
+.delete_tag {
+	width: 100%;
+	height: 70px;
+	/*background: #ccc;*/
+	line-height: 70px;
+	text-align: center;
+	font-size: 24px;
+	font-family: 微软雅黑;
+	color: #333;
+	border-bottom: 1px solid #D3D3D3;
+}
+
+/*弹出框灰色背景层*/
+.popback{
+    width: 100%; 
+    height: 100%;
+    z-index: 900;
+    left: 0;
+    top: 0; 
+    position: fixed;
+    background: rgba(0,0,0,0.3);
+}
+/*弹出框实际应用层*/
+.popbox{
+    position: fixed;
+    width: 700px;
+    height: 600px;
+    left: 50%; 
+    top: 50%;
+    margin-top: -280px;
+    margin-left: -350px;
+    z-index: 999;
+    background: rgb(254,255,255);
+    border-radius: 5px;
+    border: 1px solid #fff;
+    overflow: hidden;
+}
+/*关闭弹出框按钮样式*/
+.close_pop{
+	width: 30px;
+	height: 30px;
+	/*background: green;*/
+    cursor: pointer;/* 鼠标放上去变成小手 */
+    font-size: 18px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #BEBEBE;
+    z-index: 1000;
+}
+
+.close_pop i {
+	font-size: 30px;
+}
+
+.close_pop:hover{
+    color: rgb(248,72,106);
+}
+
+
+/*===========================下面是社区话题创建弹出框的样式==================================*/
+.popbox #topic_form {
+    width: 602px;
+}
+
+.popbox .topic_box {
+    position: absolute;
+    width: 602px;
+    height: 530px;
+    padding: 70px 49px 0 49px;
+    margin: 0;
+}
+
+.popbox .topic_box .topic_content {
+    padding-top: 10px;
+    width: 602px;
+}
+
+.popbox .topic_box .topic_category_box {
+    width: 14%;
+    height: 30px;
+    float: left;
+}
+
+.popbox .topic_box .topic_category_box #topic_category {
+    height: 30px;
+    width: 100%;
+}
+
+.popbox .topic_box .topic_title_input {
+    height: 26px;
+    width: 83%;
+    padding-left: 10px;
+    float: right;
+}
+
+.popbox button {
+    float: right;
+    margin-top: 8px;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    color: #fff;
+    font-family: 微软雅黑;
+    background: rgb(238,77,89);
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    letter-spacing: 2px;
+}
+
+
+/*===========================下面是社区话题回复弹出框的样式==================================*/
+.popbox .topic_comment_box {
+    position: absolute;
+    width: 602px;
+    height: 560px;
+    padding: 40px 49px 0 49px;
+    margin: 0;
+}
+
+.popbox .topic_comment_box .reply_detail span {
+    font-size: 15px;
+    font-family: 微软雅黑;
+}
+
+.popbox .topic_comment_box .reply_detail .reply_content {
+    padding-top: 10px;
+    max-height: 42px;
+    overflow: hidden;
+    width: 602px;
+    font-size: 15px;
+    font-family: 微软雅黑;
+}
+
+.popbox .topic_comment_post {
+    padding-top: 20px;
+}
+

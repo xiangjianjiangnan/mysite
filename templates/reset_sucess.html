@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>重置密码</title>
+    <link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login_logout.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/cms.css"> -->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_ujc5ugvzv.css">
+</head>
+<body>
+    {% include 'head.html' %}
+    <div class="login_box">
+        <div class="container">
+            <div class="login_left">
+                <div class="biaoyu1">观之数静 知以律动</div>
+                <div class="biaoyu2">Observe the data to understand its law</div>
+            </div>
+            <div class="login_right">
+                <div class="welcome"><img src="/media/img/cosdata_red_min.png"></div>
+                <div class="login_input">
+                    
+                    <div class="log_content">                          
+                        <div class="message"><i class="icon-tongzhi iconfont"></i>{{ message }}</div>
+                        <div class="content_list4">
+                            <div class="process active">
+                                <div class="process_top">1</div>
+                                <div class="process_bottom">填写用户</div>
+                            </div>
+                            <div class="process active">
+                                <div class="process_top">2</div>
+                                <div class="process_bottom">身份确认</div>
+                            </div>
+                            <div class="process active">
+                                <div class="process_top">3</div>
+                                <div class="process_bottom">重置密码</div>
+                            </div>
+                            <div class="process active">
+                                <div class="process_top active">4</div>
+                                <div class="process_bottom">完成</div>
+                            </div>
+                        </div>
+                        <div class="content_list">
+                            <div class="content_tip2">{{ operation }}</div>
+                        </div>
+                        <div class="content_list">
+                            <div class="content_tip2">
+                                <p id="timer">3</p>
+                                <p>秒钟后自动跳回登录页面</p>
+                            </div>
+                        </div>
+                        <div class="content_list">
+                            <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}"><div class="jump_to">马上登录</div></a>
+                        </div>
+
+                    </div>
+                        
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script>
+        onload=function () {
+            setInterval(go,1000)
+        };
+        var x=2;
+        // var jump_to = $('.jump_to').text()
+        function go() {
+
+            if (x>=0){
+                document.getElementById("timer").innerText=x;
+            }else {
+                location.href= "/user/login/";
+            }
+            x--;
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load functions_tags %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>话题</title>
+    <link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_oy03njc37a.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/community.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/pop.css">
+</head>
+<body>
+    <a id="scrollup" href="#top">^</a>
+    {% include 'head.html' %}
+    <div class="community_top">
+        <div class="container">
+            <div class="filter">
+               <a href="{% url 'community:community' %}"><div class="filter_list created_time">社区首页</div></a>
+               <div class="filter_tip">></div>
+               <a href="{% url 'community:topic_categry' topic.category %}"><div class="filter_list created_time">{{ topic.category }}</div></a>
+            </div>
+            <div class="topic_search">
+                <form action="{% url 'community:topic_search' %}">
+                    <div class="input_box">
+                        <input type="text" name="topic_search" id="topic_search"  placeholder="寻找话题" required="required">
+                        <button  type="submit" id="topic_search_button"><i class="icon-sousuo iconfont circle_hover"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+    <div class="topic_box">
+        <div class="container">
+            <div class="topic_box_left">
+                <div class="topic_title">{{ topic.topic_title }}</div>
+                <div id="topic_id" style="display: none;">{{ topic.pk }}</div>
+                <div class="topic_content">
+                    <div class="topic_detail">
+                        <div class="topic_detail_left">
+                            <div class="topic_user_head"><a href="{% url 'personal_center:public_author_anthologys'  topic.author.pk %}"><img src="/media/{{ topic.author.profile.portrait }}"></a></div>
+                            <div class="topic_user_name"><a href="{% url 'personal_center:public_author_anthologys'  topic.author.pk %}">{{ topic.author.username }}</a></div>
+
+                        </div>
+                        <div class="topic_detail_right">
+                            <div class="topic_content_content">
+                                <div class="topic_comment_safe">{{ topic.content|safe }}</div>
+                                
+                            </div>
+                            <div class="topic_funtion">
+                                {% if user.is_authenticated %}
+                                    <div class="topic_function_list support {% get_user_liketopic_status topic %}">
+                                        <i class="icon-dianzan1 iconfont"></i>
+                                        <span class="support_num">{% get_topic_likes_count topic %}</span>
+                                    </div>
+                                    <div class="topic_function_list reply"><i class="icon-daipingjia iconfont"></i>回复</div> 
+                                    
+                                {% else %}
+                                    <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                        <div class="topic_function_list support">
+                                            <i class="icon-dianzan1 iconfont"></i>
+                                            <span class="support_num">{% get_topic_likes_count topic %}</span>
+                                        </div>
+                                    </a>
+                                    <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                        <div class="topic_function_list reply"><i class="icon-daipingjia iconfont"></i>回复</div> 
+                                    </a>
+                                {% endif %} 
+                                
+                                <div class="topic_function_list"><i class="icon-time1 iconfont"></i>{{ topic.created_time|date:"Y/m/d H:i:s" }}</div>
+                            </div>
+
+                        </div>
+                        <div class="topic_comment_id" style="display: none;">0</div>
+                    </div>
+                    {% for topic_comment in topic_comments %}
+                        <div class="topic_detail">
+                            <div class="topic_detail_left">
+                                <div class="topic_user_head"><a href="{% url 'personal_center:public_author_anthologys'  topic_comment.user.pk %}"><img src="/media/{{ topic_comment.user.profile.portrait }}"></a></div>
+                                <div class="topic_user_name"><a href="{% url 'personal_center:public_author_anthologys'  topic_comment.user.pk %}">{{ topic_comment.user.username }}</a></div>
+
+                            </div>
+                            <div class="topic_detail_right">
+                                <div class="topic_content_content">
+                                    <div class="topic_comment_safe">{{ topic_comment.comment|safe }}</div>
+                                    
+                                    <!-- 展开评论按钮 -->
+                                    <div class="comment_show">
+                                        <span class="open_comments">展开回复</span>
+                                        <i class="icon-daipingjia iconfont"></i>
+                                        <span class="reply_num">{% get_topiccomment_children_count topic topic_comment %}</span>
+                                    </div>
+                                    <!-- 这里是二级评论的展示 -->
+                                    <div class="reply_box" style="display: none;">
+                                        {% for reply in topic_comment.topic_root_comment.all %}
+                                        <div class="reply_box_detail">
+                                            <div class="topic_detail_left">
+                                                <div class="topic_user_head"><a href="{% url 'personal_center:public_author_anthologys'  reply.user.pk %}"><img src="/media/{{ reply.user.profile.portrait }}"></a></div>
+                                                <div class="topic_user_name"><a href="{% url 'personal_center:public_author_anthologys'  reply.user.pk %}">{{ reply.user.username }}</a></div>
+
+                                            </div>
+                                            <div class="topic_detail_right">
+                                                <div class="topic_content_content">
+                                                    <div class="reply_user_to">
+                                                        <span>回复</span>
+                                                        <span>{{ reply.reply_to.username }}</span>
+                                                        <span>：</span>
+                                                    </div>
+                                                    <div class="topic_comment_safe">{{ reply.comment|safe }}</div>
+                                                </div>
+                                                <div class="topic_funtion">
+                                                    {% if user.is_authenticated %}
+                                                        <div class="topic_function_list support {% get_user_liketopiccomment_status reply %}">
+                                                            <i class="icon-dianzan1 iconfont"></i>
+                                                            <span class="support_num">{% get_topiccomment_likes_count reply %}</span>
+                                                        </div>
+
+                                                        <div class="topic_function_list reply"><i class="icon-daipingjia iconfont"></i>回复</div> 
+                                                        
+                                                    {% else %}
+                                                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                                            <div class="topic_function_list support">
+                                                                <i class="icon-dianzan1 iconfont"></i>
+                                                                <span class="support_num">{% get_topiccomment_likes_count reply %}</span>
+                                                            </div>
+                                                        </a>
+                                                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                                            <div class="topic_function_list reply"><i class="icon-daipingjia iconfont"></i>回复</div> 
+                                                        </a>
+                                                    {% endif %} 
+                                                    
+                                                    <div class="topic_function_list"><i class="icon-time1 iconfont"></i>{{ reply.comment_time|date:"Y/m/d H:i:s" }}</div>
+                                                </div>
+
+                                            </div>
+                                            <div class="topic_comment_id" style="display: none;">{{ reply.pk }}</div>
+                                        </div>
+                                        {% endfor %}
+                                       
+
+                                    </div>
+                                </div>
+                                <div class="topic_funtion">
+                                    {% if user.is_authenticated %}
+                                        <div class="topic_function_list support {% get_user_liketopiccomment_status topic_comment %}">
+                                            <i class="icon-dianzan1 iconfont"></i>
+                                            <span class="support_num">{% get_topiccomment_likes_count topic_comment %}</span>
+                                        </div>
+                                        <div class="topic_function_list reply"><i class="icon-daipingjia iconfont"></i>回复</div> 
+                                        
+                                    {% else %}
+                                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                            <div class="topic_function_list support">
+                                                <i class="icon-dianzan1 iconfont"></i>
+                                                <span class="support_num">{% get_topiccomment_likes_count topic_comment %}</span>
+                                            </div>
+                                        </a>
+                                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                            <div class="topic_function_list reply"><i class="icon-daipingjia iconfont"></i>回复</div> 
+                                        </a>
+                                    {% endif %} 
+                                    
+                                    <div class="topic_function_list"><i class="icon-time1 iconfont"></i>{{ topic_comment.comment_time|date:"Y/m/d H:i:s" }}</div>
+                                </div>
+
+                            </div>
+                            <div class="topic_comment_id" style="display: none;">{{ topic_comment.pk }}</div>
+                        </div>
+                    {% endfor %}
+                </div> 
+                
+            </div>
+            <div class="topic_box_right">
+                <div class="topic_title">热门话题</div>
+                <div class="topic_hot_show">
+                    {% for hot_topic in hot_topics %}
+                    <a href="{% url 'community:topic_detail' hot_topic.pk %}">
+                        <div class="topic_hot_list">
+                            <i class="icon-hot iconfont"></i>
+                            <p class="hot_topic_title">{{ hot_topic.topic_title }}</p>
+                            
+                        </div>
+                    </a>
+                    {% endfor %}
+                   
+                    
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <!-- 评论弹出框 -->
+    {% if user.is_authenticated %}
+        <div class="pop" style="display: none;">
+            <div class="popback">
+            </div>
+            
+            <div class="popbox">
+                <div class="close_pop"><i class="icon-guanbi iconfont"></i></div>
+                <div class="topic_comment_box">
+                    <div class="reply_detail">
+                        <span>回复@</span>
+                        <span class="reply_name"></span>
+                        <div class="reply_content"></div>
+                    </div>
+                    
+                    <div class="topic_comment_post">
+                        <form id='topic_form'  method="post" action="{% url 'community:topic_comment' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="topic_id" value="{{ topic.pk }}">
+                            <input type="hidden" name="reply_comment_id" value="0" id="reply_comment_id">
+                            <div class="topic_content">
+                                {{ topicform.content }}
+                            </div>
+                            <button type="submit">确认回复</button>
+                        </form>   
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    {% else %}    
+    {% endif %} 
+
+
+
+
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript">
+        $(".reply").click(function(){
+            var louzhu = $(this).parent('.topic_funtion').parent('.topic_detail_right').prev().children('.topic_user_name').text();
+            var topic_louzhu = $(this).parent('.topic_funtion').prev().children('.topic_comment_safe').text();
+            var topic_comment_id = $(this).parent('.topic_funtion').parent('.topic_detail_right').next().text();
+            $('.reply_name').text(louzhu);
+            $('.reply_content').text(topic_louzhu);
+            $('#reply_comment_id').val(topic_comment_id);
+            // console.log(topic_comment_id);
+            $(".pop").css("display","block");
+
+        });
+
+        $(".support").click(function(){
+            // 点赞功能的ajax请求
+            // 获取标签中是否含有active，如果有返回true,没有返回false
+            var is_active = $(this).is('.active');
+            var topiccomment_id = $(this).parent('.topic_funtion').parent('.topic_detail_right').next().text();
+            var topic_id = $('#topic_id').text();
+            var support = $(this);
+            // console.log(article_id);
+            $.ajax({
+                url: "{% url 'community:topic_comment_like' %}",
+                type: 'GET',
+                data: {
+                    topiccomment_id: topiccomment_id,
+                    is_active: is_active,
+                    topic_id: topic_id,
+                },
+                cache: false,//是否用缓存数据
+                success: function(data){
+                    // console.log(data);
+                    if(data['status']=='SUCESS'){
+                        var like_num_change = support.children('.support_num');
+                        var like_num = parseInt(support.children('.support_num').text());
+                        // console.log( support.children('.support_num').text());
+                        if(is_active){
+                            // 如果现在是点赞状态，那么就熄灭点赞图标
+                            support.removeClass('active');
+                            // 点在数量减一
+                            like_num_change.text(like_num - 1);
+                        }else{
+                            // 如果现在是未点赞状态，那么就激活点赞图标
+                           support.addClass('active');
+                            // 点赞数量加一
+                            like_num_change.text(like_num + 1);  
+                        }
+                        
+                        
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+
+        });
+
+
+        $('.comment_show').click(function(){
+            // 展开二级评论
+            var is_active = $(this).is('.active');
+            var comment_show = $(this)
+            if(is_active){
+                // 处于展开状态，收起展开，并去掉active
+                comment_show.next().css('display','none');
+                comment_show.removeClass('active');
+                comment_show.children('.open_comments').text('展开回复')
+            }else{
+               comment_show.next().css('display','block');
+               comment_show.addClass('active');
+               comment_show.children('.open_comments').text('收起回复')
+            }
+            
+
+        });
+
+
+        $(function(){
+            $('.head').find('.community').addClass('active');
+        })
+    </script>
+
+</body>
+</html>

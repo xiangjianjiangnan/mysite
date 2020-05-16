@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>文选修改</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			{% include 'cms_left.html' %}
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">文选修改</div>
+				</div>
+				<div class="right_content">
+					<div class="anthology_change_tip"></div>
+					<div class="anthology_create_box antholog_change">
+						<form action="{% url 'personal_center:anthology_change_handle' %}" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="right_content_left">
+								<div class="img_show" style="border:none;">
+									<img id="cover_img" src="/media/{{ anthology.anthology_cover }}" style="display: block;">
+									<div class="icon-tianjia iconfont"></div>
+									<input type="file" name="anthology_cover" id="cover_input" accept="image/jpg,image/jpeg,image/png,image/PNG" onchange="articlecover(this)">
+									<!-- <div class="img_tip">上传文选封面 : 826×450（单位：px）</div> -->
+								</div>
+								
+								
+							</div>
+							<div class="right_content_right">
+								<div class="input_box">
+									<input  id="anthology_title" name="anthology_title" placeholder="标题(15字以内)" required="required" maxlength="15" value="{{ anthology.anthology_title }}">
+									<input type="hidden" name="anthology_id" value="{{ anthology.pk }}">
+									<textarea id="anthology_describe" name="anthology_describe" rows="6" placeholder="写点什么……" required="required"  maxlength="200">{{ anthology.anthology_describe }}</textarea>
+									<button type="submit">确认修改</button>
+								</div>
+							</div>
+
+						</form>
+					</div>
+					
+						
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/pop.js"></script>
+	<script src="/static/js/cms.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#cms_left_anthology').addClass('active');
+		})
+	</script>
+
+</body>
+</html>

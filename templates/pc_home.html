@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load functions_tags %}
+<html>
+<head>
+	<title>个人中心</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			{% include 'cms_left.html' %}
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">首页</div>
+				</div>
+				<div class="right_content">
+					
+					{% for anthology in anthologys %}
+						<div class="p_home_title">
+							<div class="name">{{ anthology.anthology_title }}</div>
+							<div class="num">{% get_anthology_articles_count anthology %}</div>
+							<a href="{% url 'personal_center:anthology_article' anthology.pk %}">
+								<div class="more">更多 ></div>
+							</a>
+						</div>
+						<div class="anthology_show_box">
+							<div class="anthology_con">
+								<a href="/article/{% get_anthology_article_12 anthology %}/">
+									<div class="anthology_img_show">
+										<img src="/media/{% get_anthology_article_13 anthology %}">
+										
+									</div>
+								</a>
+								<div class="anthology_title">{% get_anthology_article_11 anthology %}</div>
+							</div>
+							<div class="anthology_con">
+								<a href="/article/{% get_anthology_article_22 anthology %}/">
+									<div class="anthology_img_show">
+										<img src="/media/{% get_anthology_article_23 anthology %}">
+										
+									</div>
+								</a>
+								<div class="anthology_title">{% get_anthology_article_21 anthology %}</div>
+							</div>
+							<div class="anthology_con">
+								<a href="/article/{% get_anthology_article_32 anthology %}/">
+									<div class="anthology_img_show">
+										<img src="/media/{% get_anthology_article_33 anthology %}">
+										
+									</div>
+								</a>
+								<div class="anthology_title">{% get_anthology_article_31 anthology %}</div>
+							</div>
+							<div class="anthology_con">
+								<a href="/article/{% get_anthology_article_42 anthology %}/">
+									<div class="anthology_img_show">
+										<img src="/media/{% get_anthology_article_43 anthology %}">
+										
+									</div>
+								</a>
+								<div class="anthology_title">{% get_anthology_article_41 anthology %}</div>
+							</div>
+							
+						</div>
+
+					{% endfor %}
+					
+					
+				</div>	
+
+			</div>
+			
+		</div>
+	</div>
+
+ 
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#cms_left_home').addClass('active');
+		})
+
+
+
+		window.onload = function(){
+			$('.anthology_con').each(function(e){
+				var nodata  = $(this).children('.anthology_title').text();
+				// console.log(nodata)
+				if($.trim(nodata) == 'None'){
+					// console.log('xiaoshi');
+					$(this).css('display','none');
+				}
+			})
+		}
+	</script>
+
+</body>
+</html>

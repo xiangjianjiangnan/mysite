@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html style="scrollbar-base-color:red;">
+{% load staticfiles %}
+<head>
+	<title>消息中心</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			{% include 'cms_left.html' %}
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">个人资料</div>
+				</div>
+				<div class="right_content">
+					<form action="{% url 'personal_center:portrait_change' %}" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="information_left">
+							
+							<div class="head_show_box">
+								<img src="/media/{{ user.profile.portrait }}" id="img_show">
+							</div>
+							<div class="information_list">
+								<div class="information_name">上传图片：</div>
+								<input type="file" id="portrait" name="portrait" accept="image/jpg,image/jpeg,image/png,image/PNG" onchange="changepic()" required="required"> 
+							</div>
+							<button type="submit">更换头像</button>
+						</div>
+					</form>
+
+					<form action="{% url 'personal_center:information_change' %}" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						
+						<div class="information_right">
+							
+								
+								<div class="information_list">
+									<div class="information_name">邮箱：</div>
+									<input type="text" name="email" value="{{ user.email }}" required="required">
+								</div>
+								
+								<div class="information_list">
+									<div class="information_name">签名：</div>
+									<textarea name="autograph" rows="3" maxlength="100">{{ user.profile.autograph }}</textarea>
+								</div>
+								<div class="information_list">
+									<div class="information_name">生日：</div>
+									<input type="date" name="birthday" value="{{ user.profile.birthday|date:'Y-m-d' }}">
+								</div>
+								<div class="information_list">
+									<div class="information_name">性别：</div>
+									<input type="hidden" value="{{ user.profile.sex }}" class="sex_hidden">
+									<input type="radio" name="sex" value="男" class="radio man"><div class="radio_tag">男</div>
+									<input type="radio" name="sex" value="女" class="radio woman"><div class="radio_tag">女</div>
+								</div>
+								<div class="information_list">
+									<div class="information_name">手机：</div>
+									<input type="text" name="telephone" value="{{ user.profile.telephone }}">
+								</div>
+								<div class="information_list">
+									<div class="information_name">城市：</div>
+									<input type="text" name="city" value="{{ user.profile.city }}">
+								</div>
+								<button type="submit">提交修改</button>
+								
+							
+						</div>
+					</form>
+					
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script src="/static/js/cms.js"></script>
+    <script>
+		$(function(){
+			$('#cms_left_information').addClass('active');
+		})
+
+        function changepic() {
+            var portrait = document.getElementById("portrait");
+            var imgshow = document.getElementById("img_show");
+            var reads = new FileReader();
+            reads.readAsDataURL(portrait.files[0]);
+            reads.onload = function() {
+                imgshow.src = this.result;
+            };
+        };
+
+        $(function(){
+        	var sex_hidden = $('.sex_hidden').val();
+        	// console.log(sex_hidden);
+        	if(sex_hidden == '男'){
+        		$('.man').attr("checked","checked");
+        	}else if(sex_hidden == '女'){
+        		$('.woman').attr("checked","checked");
+        	}
+        });
+
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CMS推荐设置</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_f0jv6z88c8p.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			<div class="cms_left">
+				<div class="cms_user_box">
+					<div class="cms_user_head">
+						<a href="javascript:void(0)"><img src="/media/{{ user.profile.portrait }}"></a>
+					</div>
+				</div>
+				<div class="cms_left_list">
+					<a href="{% url 'cms:cms' %}">
+						<i class="icon-shouye1 iconfont"></i>
+						<p>首页</p>
+					</a>					
+				</div>
+				
+				<div class="cms_left_list active">
+					<a href="{% url 'cms:recommend' %}">
+						<i class="icon-liuchengzhong iconfont"></i>
+						<p>推荐设置</p>
+					</a>			
+				</div>
+			</div>
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">推荐设置</div>
+				</div>
+				<div class="right_content">
+					
+					<div class="right_left">
+						<!-- <div class="right_left_tip">首页推荐位对应表</div> -->
+						<div class="right_left_list">首页轮播推荐：11</div>
+						<div class="right_left_list">首页重点文章：12</div>
+						<div class="right_left_list">首页文选推荐：13</div>
+						<div class="right_left_list">首页文章推荐：14</div>
+						<div class="right_left_list">首页作者推荐：15</div>
+						<!-- <div class="right_left_list">首页书籍推荐：16</div> -->
+						<div class="right_left_list">首页教程推荐：16</div>
+						
+					</div>
+					
+					<div class="right_right">
+						<form action="{% url 'cms:recommend_post' %}" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="recommend_tip">推荐上传：</div>
+							<div class="recommend_box">
+								<input name="recommend_type" placeholder="推荐类型（按照左侧分类填入数字）" required="required" maxlength="15">
+								<input name="recommend_id" placeholder="推荐 ID（填入推荐文章、文选、作者ID，用空格隔开）" required="required" maxlength="15">
+								<textarea name="recommend_text" rows="6" placeholder="推荐语（可以为空，作为标识）"   maxlength="200"></textarea>
+								<button type="submit">确认修改</button>
+							</div>
+
+						</form>
+					</div>
+					
+						
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/pop.js"></script>
+	<script src="/static/js/cms.js"></script>
+
+</body>
+</html>

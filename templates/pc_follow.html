@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html style="scrollbar-base-color:red;">
+{% load staticfiles %}
+{% load functions_tags %}
+<head>
+	<title>帖子</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			{% include 'cms_left.html' %}
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">关注的人</div>
+				</div>
+				<div class="right_content">
+					<div class="fans_follow" style="display:none;">{{ fans_follow }}</div>
+					{% for follow in page_of_follows %}
+						<div class="p_follow_detail">
+							<div class="follow_head">
+								<a href="{% url 'personal_center:public_author_message'  follow.author.pk %}"><img src="/media/{{ follow.author.profile.portrait }}"></a>
+							</div>
+							<dvi class="p_follow_mid">
+								<a href="{% url 'personal_center:public_author_message'  follow.author.pk %}"><div class="p_follow_name">{{ follow.author.username }}</div></a>
+								<div class="p_follow_data">
+									<div class="follow_datalist">
+										<span>文选</span>
+										<span class="p_show_count">{% get_author_anthologys_count follow.author %}</span>
+									</div>
+									<div class="follow_datalist">
+										<span>文章</span>
+										<span class="p_show_count">{% get_author_articles_count follow.author %}</span>
+									</div>
+									<div class="follow_datalist">
+										<span>粉丝</span>
+										<span class="p_show_count">{% get_author_followers_count follow.author %}</span>
+									</div>
+									<div class="follow_datalist">
+										<span>关注</span>
+										<span class="p_show_count">{% get_author_follows_count follow.author %}</span>
+									</div>
+								</div>
+								<div class="p_follow_autograph">签名：{{ follow.author.profile.autograph }}</div>
+							</dvi>
+						</div>
+					{% empty %}
+					{% endfor %}
+					<!-- 分页器 -->
+					<div class="page_cut_box">
+					    <!-- 判断是否有上一页 -->
+					    {% if page_of_follows.has_previous %}
+					        <a href="?page={{ page_of_follows.previous_page_number }}"><div class="page_num_list pre_or_next">上一页</div></a> 
+					    {% else %}
+					        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">上一页</div></a>
+					    {% endif %}
+					    
+					    {% if left_has_more %}
+					        <a href="?page=1"><div class="page_num_list">1</div></a> 
+					        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+					    {% endif %}
+
+					    {% for left_page in left_pages %}
+					        <a href="?page={{ left_page }}"><div class="page_num_list">{{ left_page }}</div></a> 
+					        
+					    {% endfor %}
+
+					    <a href="javascript:void(0)"><div class="page_num_list active">{{ current_page }}</div></a>
+
+					    {% for right_page in right_pages %}
+					        <a href="?page={{ right_page }}"><div class="page_num_list">{{ right_page }}</div></a> 
+					        
+					    {% endfor %}
+
+					    {% if right_has_more %}
+					        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+					        <a href="?page={{ num_pages }}"><div class="page_num_list">{{ num_pages }}</div></a> 
+					        
+					    {% endif %}
+
+					    <!-- 判断是否有下一页 -->
+					    {% if page_of_follows.has_next %}
+					        <a href="?page={{ page_of_follows.next_page_number }}"><div class="page_num_list pre_or_next">下一页</div></a> 
+					    {% else %}
+					        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">下一页</div></a>
+					    {% endif %}
+					    
+					</div>
+					
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script src="/static/js/cms.js"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		var fans_follow = $('.fans_follow').text();
+    		if(fans_follow=='fans'){
+    			$('#cms_left_fans').addClass('active');
+    		}else if(fans_follow=='follow'){
+    			$('#cms_left_follow').addClass('active');
+    		}
+    		
+    	})
+    </script>
+</body>
+</html>

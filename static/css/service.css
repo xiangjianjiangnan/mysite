@@ -1,0 +1,218 @@
+.main {
+	width: 100%;
+	margin-top: 120px;
+}
+
+
+.main .service_list {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.main .service_list2 {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    margin: 30px 0;
+    background: rgb(40,43,50);
+}
+
+.main .service_list img {
+	width: 100%;
+	height: auto;
+}
+
+.main .service_list .img4 {
+	width: 70%;
+	margin: 20px 15%;
+}
+
+.main .service_list .img6 {
+	width: 80%;
+	margin: 20px 10%;
+}
+
+.main .service_list .img5 {
+	width: 30%;
+	margin: 20px 10%;
+}
+
+.main .service_list2 .img2 {
+	float: left;
+	width: 40%;
+	margin: 0 5%;
+}
+
+.main .service_list2 .img3 {
+	float: left;
+	width: 40%;
+	margin: 140px 5% 0 5%;
+}
+
+.main .service_list .service_left_text {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	width: 50%;
+}
+
+.main .service_list .service_left_text2 {
+	float: left;
+	width: 45%;
+	padding: 50px 0 0 5%;
+}
+
+.main .service_list .service_left_text3 {
+	float: right;
+	width: 45%;
+	padding: 50px 0 0 5%;
+}
+
+.main .service_list .service_top_text {
+	width: 96%;
+	padding: 0 2% 20px 2%;
+	border-top: 1px solid rgb(238,77,89);
+	border-bottom: 1px solid rgb(238,77,89);
+	margin: 20px 0;
+}
+.main .service_list .service_top_text2 {
+	width: 96%;
+	padding: 0 2% 0 2%;
+}
+
+
+.service_list .text1 {
+	font-size: 40px;
+	line-height: 80px;
+	font-weight: bold;
+	color: #fff;
+}
+
+.service_list .text2 {
+	font-size: 16px;
+	line-height: 30px;
+	color: #fff;
+}
+
+.service_list .text3 {
+	width: 96%;
+	font-size: 30px;
+	line-height: 60px;
+	font-weight: bold;
+	color: #333;
+	text-align: center;
+}
+
+.service_list .text4 {
+	width: 96%;
+	font-size: 16px;
+	line-height: 30px;
+	color: #333;
+}
+
+.service_list .text5 {
+	font-size: 30px;
+	line-height: 80px;
+	font-weight: bold;
+	color: #333;
+}
+
+.service_list .text6 {
+	font-size: 14px;
+	line-height: 30px;
+	color: #333;
+}
+
+.service_list .text7 {
+	font-size: 25px;
+	line-height: 50px;
+	color: #fff;
+	width: 30%;
+	margin: 20px 35%;
+	background: rgb(238,77,89);
+	border-radius: 6px;
+	text-align: center;
+}
+
+
+
+
+.service_list .service_left {
+	width: 2.5%;
+	float: left;
+	margin-right: 2.5%;
+}
+
+.service_list .service_mid {
+	width: 10%;
+	float: left;
+	font-weight: bold;
+	font-size: 20px;
+	color: #333;
+}
+
+.service_list .service_right {
+	width: 85%;
+	float: left;
+	line-height: 26px;
+	font-size: 14px;
+	color: #333;
+}
+
+.service_list .service_left2 {
+	width: 3%;
+	float: left;
+	margin-right: 2%;
+}
+
+.service_list .service_mid2 {
+	width: 20%;
+	float: left;
+	font-weight: bold;
+	font-size: 20px;
+	color: #333;
+	margin-top: 5px;
+}
+
+.service_list .service_right2 {
+	width: 75%;
+	float: left;
+	line-height: 26px;
+	font-size: 14px;
+	color: #333;
+	margin-top: 5px;
+}
+
+.head3 {
+	width: 100%;
+	height: 50px;
+	background: rgba(248,248,248,1);
+	position: fixed;
+	top: 50px;
+	box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+	z-index: 1;
+
+}
+
+.head3 .head3_list {
+	float: left;
+	width: 20%;
+	height: 50px;
+	line-height: 50px;
+	color: #333;
+	text-align: center;
+}
+
+.head3 .head3_list:hover {
+	background: rgba(230,230,230,1);
+}
+
+.head3 .head3_list.active {
+	background: rgba(230,230,230,1);
+}
+
+

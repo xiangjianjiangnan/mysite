@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html style="scrollbar-base-color:red;">
+{% load staticfiles %}
+{% load functions_tags %}
+<head>
+	<title>文章修改</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			{% include 'cms_left.html' %}
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">文章</div>
+				</div>
+				<div class="right_content">
+					
+					<div class="article_release_box">
+						<form action="{% url 'personal_center:article_change_handle' %}" method="post" id="article_form" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="content_other">
+								<div class="articletitle_box">
+									<input  id="article_title" name="article_title" placeholder="标题(50字以内)" required="required" maxlength="50" value="{{ article.article_title }}">
+								</div>
+								<div class="right_content_left">
+									<div class="img_show"  style="border:none;">
+										<img id="cover_img" src="/media/{{ article.article_cover }}"  style="display: block;">
+										<div class="icon-tianjia iconfont"></div>
+										<input type="file" name="article_cover" id="cover_input" accept="image/jpg,image/jpeg,image/png,image/PNG" onchange="articlecover(this)">
+										<!-- <div class="img_tip">上传文章封面 : 826×450（单位：px）</div> -->
+									</div>
+									
+								</div>
+								<div class="right_content_right">
+									<div class="input_box">
+										<div class="select_box">
+											<div class="select_tip">
+												<i class="icon-book_icon iconfont"></i>
+												文选：
+											</div>
+											<div class="select_input">
+												<select name="anthology" id="anthology">
+													<option value ="{{ article.anthology.anthology_title }}">{{ article.anthology.anthology_title }}</option>
+													{% for anthology in anthologys %}
+													<option value ="{{ anthology.anthology_title }}">{{ anthology.anthology_title }}</option>
+													{% endfor %}
+												</select>
+											</div>
+											
+										</div>
+										<div class="select_box select_right">
+											<div class="select_tip">
+												<i class="icon-fenlei iconfont"></i>
+												分类：
+											</div>
+											<div class="select_input">
+												<select name="category" id="category">
+													<option value ="{{ article.category }}">{{ article.category }}</option>
+													<option value ="数据抓取">数据抓取</option>
+													<option value ="数据清洗">数据清洗</option>
+													<option value="数据分析">数据分析</option>
+													<option value="数据可视化">数据可视化</option>
+													<option value="数据可视化">报告撰写</option>
+												</select>
+											</div>
+											
+										</div>
+										
+										<!-- <input  id="article_title" name="article_title" placeholder="标题" required="required"> -->
+										<textarea id="summary" name="summary" rows="6" placeholder="摘要" required="required" maxlength="200">{{ article.summary }}</textarea>
+										<!-- <button type="submit">创建</button> -->
+									</div>
+								</div>
+							</div>
+							
+							<div class="content_input">
+								{{ articleform.content }}
+								<div class="article_content" style="display: none;">{{ article.content }}</div>
+								<input type="hidden" name="article_id" value="{{ article.pk}}">
+
+								<button type="submit">确认修改</button>
+							</div>
+							
+						</form>
+					</div>
+
+					
+					
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script src="/static/js/cms.js"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script type="text/javascript">
+		// 当页面加载完毕后，将文章内容添加到文本框中
+		$(function() {
+			 var article_content = $('.article_content').text();
+			 console.log(article_content);
+			 $('#id_content').text(article_content);
+		});
+    </script>
+    <script type="text/javascript">
+    	$(function(){
+    		$('#cms_left_article').addClass('active');
+    	})
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CMS新闻发布</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_2lgm3jb04t9.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			<div class="cms_left">
+				<div class="cms_user_box">
+					<div class="cms_user_head">
+						<a href="javascript:void(0)"><img src="/media/{{ user.profile.portrait }}"></a>
+					</div>
+				</div>
+				<div class="cms_left_list">
+					<a href="{% url 'cms:cms' %}">
+						<i class="icon-shouye1 iconfont"></i>
+						<p>首页</p>
+					</a>					
+				</div>
+				<div class="cms_left_list active">
+					<a href="{% url 'cms:anthology_release' %}">
+						<i class="icon-book_icon iconfont"></i>
+						<p>生成文选</p>
+					</a>				
+				</div>
+				<div class="cms_left_list">
+					<a href="{% url 'cms:tag_release' %}">
+						<i class="icon-biaoqian iconfont"></i>
+						<p>文章设置</p>
+					</a>				
+				</div>
+				<div class="cms_left_list">
+					<a href="{% url 'cms:article_release' %}">
+						<i class="icon-wenjian iconfont"></i>
+						<p>文章发布</p>
+					</a>				
+				</div>
+				<div class="cms_left_list">
+					<a href="#">
+						<i class="icon-liuchengzhong iconfont"></i>
+						<p>轮播推荐</p>
+					</a>			
+				</div>
+				<div class="cms_left_list">
+					<a href="#">
+						<i class="icon-xiangmuguanli iconfont"></i>
+						<p>精选推荐</p>
+					</a>
+					
+				</div>
+				<div class="cms_left_list">
+					<a href="#">
+						<i class="icon-yewu iconfont"></i>
+						<p>教程推荐</p>
+					</a>
+					
+				</div>
+			</div>
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">文选</div>
+					<div class="create_bar" id="article_create_bar"><i class="icon-bianji iconfont"></i>  新建</div>
+					<div class="create_bar" id="putaway" style="display: none;"><i class="icon-jian iconfont"></i>  收起</div>
+				</div>
+				<div class="right_content">
+					
+					<div class="anthology_create_box" style="display:none;">
+						<form action="{% url 'cms:anthology_create' %}" method="post" id="anthology_form" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="right_content_left">
+								<div class="img_show">
+									<img id="cover_img" src="#">
+									<div class="icon-tianjia iconfont"></div>
+									<input type="file" name="anthology_cover" id="anthology_cover" accept="image/jpg,image/jpeg,image/png,image/PNG" onchange="anthologcover(this)">
+									<!-- <div class="img_tip">上传文选封面 : 826×450（单位：px）</div> -->
+								</div>
+								
+							</div>
+							<div class="right_content_right">
+								<div class="input_box">
+									<!-- <div class="input_tip">标题</div> -->
+									<input  id="anthology_title" name="anthology_title" placeholder="标题" required="required" maxlength="15">
+									<!-- <div class="input_tip">描述</div> -->
+									<textarea id="anthology_describe" name="anthology_describe" rows="6" placeholder="写点什么……" required="required"></textarea>
+									<button type="submit">创建文选</button>
+								</div>
+							</div>
+
+						</form>
+					</div>
+					<div class="anthology_show_box">
+						{% for anthology in anthologys %}
+							<div class="anthology_con">
+								<div class="anthology_img_show">
+									<img src="/media/{{ anthology.anthology_cover }}">
+									
+								</div>
+								<div class="anthology_title">
+									{{ anthology.anthology_title }}
+								</div>
+							</div>
+							
+						{% endfor %}
+					</div>
+					
+						
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/pop.js"></script>
+	<script src="/static/js/cms.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load functions_tags %}
+<html>
+<head>
+	<title>{{ user.username }}的个人空间</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/public_author.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_wij6hl9p3n.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="public_author_box">
+		<div class="container">
+			<div class="p_author_back">
+				<div class="p_author_box">
+					<div class="p_author_left">
+						<img src="/media/{{ author.profile.portrait }}">
+					</div>
+					<div class="p_author_mid">
+						<div class="p_author_name">{{ author.username }}</div>
+						<div class="p_author_autograph">{{ author.profile.autograph }}</div>
+					</div>
+					<div class="p_author_right">
+						{% if user.is_authenticated %}
+							<form id='authorfollow_form'  method="post" action="{% url 'personal_center:author_follow' %}">
+							    {% csrf_token %}
+							    <input type="hidden" name="author_id" value="{{ author.pk }}">
+							    <button type="submit" class="follow_button p_right_button">{% get_user_follow_status author %}</button>
+							</form>
+								
+							
+							
+							<!-- <div class="private_letter p_right_button">私信</div> -->
+						{% else %}
+							<a href="{% url 'userprofile:login_show' %}?next={{ request.path }}"><div class="follow_button p_right_button">+ 关注</div></a>
+							<!-- <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}"><div class="private_letter p_right_button">私信</div></a> -->
+						{% endif %}
+						
+						
+					</div>
+				</div>
+			</div>
+			<div class="p_author_show_bar">
+				<div class=" p_show_bar_right">
+					<i class="icon-shoucang iconfont"></i>
+					<span class="p_show_count">{{ collect_count }}</span>
+				</div>
+				<div class="p_show_bar_right">
+					<i class="icon-xihuan iconfont"></i>
+					<span class="p_show_count">{{ like_count }}</span>
+				</div>
+				<a href="{% url 'personal_center:public_author_anthologys'  author.pk %}">
+					<div class="p_show_bar articles_show_bar">
+						<span>文选</span>
+						<span class="p_show_count">{% get_author_articles_count author %}</span>
+					</div>
+				</a>
+				<a href="{% url 'personal_center:public_author_follows'  author.pk %}">
+					<div class="p_show_bar follows_show_bar">
+						<span>关注</span>
+						<span class="p_show_count">{% get_author_follows_count author %}</span>
+					</div>
+				</a>
+				<a href="{% url 'personal_center:public_author_fans'  author.pk %}">
+					<div class="p_show_bar fans_show_bar">
+						<span>粉丝</span>
+						<span class="p_show_count funs_num">{% get_author_followers_count author %}</span>
+					</div>
+				</a>
+				<div class="follow_fan" style="display: none;">{{ follow_fan }}</div>
+			</div>
+			<div class="p_detail_show">
+				{% for follow in page_of_follows %}
+					<div class="p_follow_detail">
+						<div class="follow_head">
+							<a href="{% url 'personal_center:public_author_anthologys'  author.pk %}"><img src="/media/{{ follow.author.profile.portrait }}"></a>
+						</div>
+						<dvi class="p_follow_mid">
+							<a href="{% url 'personal_center:public_author_anthologys'  author.pk %}"><div class="p_follow_name">{{ follow.author.username }}</div></a>
+							<div class="p_follow_data">
+								<div class="follow_datalist">
+									<span>文选</span>
+									<span class="p_show_count">{% get_author_anthologys_count follow.author %}</span>
+								</div>
+								<div class="follow_datalist">
+									<span>文章</span>
+									<span class="p_show_count">{% get_author_articles_count follow.author %}</span>
+								</div>
+								<div class="follow_datalist">
+									<span>粉丝</span>
+									<span class="p_show_count">{% get_author_followers_count follow.author %}</span>
+								</div>
+								<div class="follow_datalist">
+									<span>关注</span>
+									<span class="p_show_count">{% get_author_follows_count follow.author %}</span>
+								</div>
+							</div>
+							<div class="p_follow_autograph">签名：{{ follow.author.profile.autograph }}</div>
+						</dvi>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="p_page_box">
+				<!-- 分页器 -->
+				<div class="page_cut_box">
+				    <!-- 判断是否有上一页 -->
+				    {% if page_of_follows.has_previous %}
+				        <a href="?page={{ page_of_follows.previous_page_number }}"><div class="page_num_list pre_or_next">上一页</div></a> 
+				    {% else %}
+				        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">上一页</div></a>
+				    {% endif %}
+				    
+				    {% if left_has_more %}
+				        <a href="?page=1"><div class="page_num_list">1</div></a> 
+				        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+				    {% endif %}
+
+				    {% for left_page in left_pages %}
+				        <a href="?page={{ left_page }}"><div class="page_num_list">{{ left_page }}</div></a> 
+				        
+				    {% endfor %}
+
+				    <a href="javascript:void(0)"><div class="page_num_list active">{{ current_page }}</div></a>
+
+				    {% for right_page in right_pages %}
+				        <a href="?page={{ right_page }}"><div class="page_num_list">{{ right_page }}</div></a> 
+				        
+				    {% endfor %}
+
+				    {% if right_has_more %}
+				        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+				        <a href="?page={{ num_pages }}"><div class="page_num_list">{{ num_pages }}</div></a> 
+				        
+				    {% endif %}
+
+				    <!-- 判断是否有下一页 -->
+				    {% if page_of_follows.has_next %}
+				        <a href="?page={{ page_of_follows.next_page_number }}"><div class="page_num_list pre_or_next">下一页</div></a> 
+				    {% else %}
+				        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">下一页</div></a>
+				    {% endif %}
+				    
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/pop.js"></script>
+	<script src="/static/js/cms.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var follow_fan = $('.follow_fan').text();
+			if(follow_fan == 'follow'){
+				$('.follows_show_bar').addClass('active');
+			}else if(follow_fan == 'fan'){
+        		$('.fans_show_bar').addClass('active');
+        	}
+			
+		});
+	</script>
+
+
+</body>
+</html>

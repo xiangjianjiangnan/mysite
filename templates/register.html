@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>注册</title>
+    <link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login_logout.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/cms.css"> -->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_ujc5ugvzv.css">
+</head>
+<body>
+    {% include 'head.html' %}
+    <div class="login_box">
+        <div class="container">
+            <!-- <div class="head_box">
+                <a href="{% url 'userprofile:register_show' %}"><div class="head_list">注册</div></a>
+                <div class="xiegang">/</div>
+                <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}"><div class="head_list">登录</div></a>
+                <div class="xiegang">/</div>
+                <a href="/"><div class="head_list">首页</div></a>                 
+            </div> -->
+            <div class="login_left">
+                <div class="biaoyu1">观之数静 知以律动</div>
+                <div class="biaoyu2">Observe the data to understand its law</div>
+            </div>
+            <div class="login_right">
+                <div class="welcome"><img src="/media/img/cosdata_red_min.png"></div>
+                <div class="login_input">
+                    <form id='register_form'  method="post" action="{% url 'userprofile:user_register'%}">
+                        {% csrf_token %}
+                        <div class="log_content">                          
+                            <div class="message"><i class="icon-tongzhi iconfont"></i>{{ message }}</div>
+                            <div class="content_list">
+                                <input type="text" class="input_set" id="register_username" name="register_username" placeholder="账号" required="required">
+                            </div>
+                            <div class="content_list">
+                                <input type="email" class="input_set" id="register_email" name="register_email" placeholder="邮箱" required="required">
+                            </div>
+                            <div class="content_list">
+                                <input type="password" class="input_set" id="register_password" name="register_password" placeholder="密码(至少6位)" required="required">
+                            </div>
+                            <div class="content_list">
+                                <input type="password" class="input_set" id="register_password2" name="register_password2" placeholder="确认密码" required="required">
+                            </div>
+                            <div class="content_list">
+                                <button type="submit" class="register_immediately">立即注册</button>
+                            </div>
+
+                        </div>
+                        
+                    </form>  
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/static/js/jquery.min.js"></script>
+    
+</body>
+</html>

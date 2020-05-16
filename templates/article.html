@@ -1,0 +1,660 @@
+{% load functions_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>文章</title>
+    <link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_bs1cj6ug19.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/article.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+</head>
+<body>
+    <a id="scrollup" href="#top">^</a>
+    {% include 'head.html' %}
+    <div class="back_set"></div>
+    <div class="article_box1">
+
+        <div class="container">
+            <div class="cover_box article_width">
+
+                <div class="cover">
+                    {% if user.is_authenticated %}
+                        <!-- <div class="left_circle circle_0"> <div class="pure circle_hover">净</div></div> -->
+                        <div class="left_circle circle_1 {% get_user_likearticle_status article %}"><i class="icon-xihuan iconfont circle_hover"></i></div>
+                        <div class="left_circle circle_2 {% get_user_collectarticle_status article %}"><i class="icon-shoucang iconfont circle_hover"></i></div>
+                        <div class="left_circle circle_3"><div class="reward circle_hover">赏</div></div>
+                    {% else %}
+                        <div class="left_circle circle_0"> <div class="pure circle_hover">净</div></div>
+                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                            <div class="left_circle circle_1"><i class="icon-xihuan iconfont circle_hover"></i></div>
+                        </a>
+                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                            <div class="left_circle circle_2"><i class="icon-shoucang iconfont circle_hover"></i></div>
+                        </a>
+                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                            <div class="left_circle circle_3"><div class="reward circle_hover">赏</div></div>  
+                        </a>  
+                    {% endif %}
+                    
+                    
+                    <div class="img_box">
+                        <img src="/media/{{ article.article_cover }}">
+                    </div>
+                    
+                </div>
+            </div>           
+        </div>
+    </div>
+    <div class="article_box2">
+
+        <div class="container">
+
+            <div class="right_bar">
+                <div class="auth_box">
+                    <div class="auth_detail1">
+                        <div class="auth_head">
+                            <a href="{% url 'personal_center:public_author_anthologys'  article.author.pk %}"><img src="/media/{{ article.author.profile.portrait }}"></a>
+                        </div>
+                        <div class="auth_head_right">
+                            <div class="auth_name">
+                                <a href="{% url 'personal_center:public_author_anthologys' article.author.pk %}">{{ article.author.username }}</a>
+
+                            </div>
+                            <span class="author_id" style="display: none">{{ article.author.pk }}</span>
+                            {% if user.is_authenticated %}
+                                <div class="auth_follow">
+                                    <div class="follow_button">{% get_user_follow_status article.author %}</div>
+                                </div>
+                            {% else %}
+                                <div class="auth_follow">
+                                    <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                        <div class="follow_button">+ 关注</div>  
+                                    </a> 
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="auth_detail2">
+                        <div class="auth_num">
+                            <div class="num_box">
+                                <p class="num">{% get_author_anthologys_count article.author %}</p>
+                                <div class="arrow_box">
+                                    <p class="arrow"></p>
+                                </div>
+                                
+                                <p class="num_tip">文选</p>
+                            </div>
+                            <div class="num_box">
+                                <p class="num">{% get_author_articles_count article.author %}</p>
+                                <div class="arrow_box">
+                                    <p class="arrow"></p>
+                                </div>
+                                <p class="num_tip">文章</p>
+                            </div>
+                            <div class="num_box">
+                                <p class="num fans_num">{% get_author_followers_count article.author %}</p>
+                                <div class="arrow_box">
+                                    <p class="arrow"></p>
+                                </div>
+                                <p class="num_tip">粉丝</p>
+                            </div>
+                            <div class="num_box">
+                                <p class="num">{% get_author_follows_count article.author %}</p>
+                                <div class="arrow_box">
+                                    <p class="arrow"></p>
+                                </div>
+                                <p class="num_tip">关注</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="auth_detail3">
+                        {% for latest_article in latest_articles %}
+                            <a href="{% url 'article:article_detail' latest_article.pk %}">
+                                <div class="article_list">
+                                    <i class="icon-wenjian iconfont article_float"></i>
+                                    <p>{{ latest_article.article_title }}</p>
+                                </div>
+                            </a>
+                        {% endfor %}
+                        
+                        
+                        
+                    </div>
+                </div>
+                <div class="advertisement">
+                    <a href="{% url 'personal_center:public_author_articles' article.anthology.pk %}">
+                        <div class="advertisement_img">
+                            <img src="/media/{{ article.anthology.anthology_cover }}">
+                        </div>
+                    </a>
+                   
+                    
+                </div>
+            </div>
+            <div class="detail_box article_width">
+                <div class="title_box">
+                    <div class="title">
+                        {{ article.article_title }}
+                    </div>
+                    
+                </div>
+                <div class="person">
+                    <div class="person_list person_date" style="display: none;">
+                        <!-- <i class="icon-id iconfont"></i> -->
+                        <span>文章ID:</span>
+                         <span id="article_id" class="article_data">{{ article.pk }}</span>
+                    </div>
+                    <div class="person_list person_date">
+                        <i class="icon-time1 iconfont"></i>
+                        <span class="article_time article_data">{{ article.created_time|date:"Y/m/d H:i:s" }}</span>
+                    </div> 
+                    <div class="person_list person_date">
+                        <i class="icon-xihuan iconfont"></i>
+                        <!-- <span>喜欢：</span> -->
+                        <span class="like_num article_data">{% get_article_likes_count article %}</span>
+                    </div>
+                    <div class="person_list person_date">
+                        <i class="icon-shoucang iconfont"></i>
+                        <!-- <span>收藏：</span> -->
+                        <span class="collect_num article_data">{% get_article_collects_count article %}</span>
+                    </div>
+                    <div class="person_list person_date">
+                        <i class="icon-daipingjia iconfont"></i>
+                        <!-- <span>评论：</span> -->
+                        <span class="comment_num article_data">{% get_article_comments_count article %}</span>
+                    </div> 
+                    <div class="person_list person_date">
+                        <i class="icon-yuedu iconfont"></i>
+                        <span class="comment_num article_data">{{ article.read_num }}</span>
+                    </div> 
+                    
+                </div>
+                <div class="person">
+                    <div class="person_head">
+                        <a href="{% url 'personal_center:public_author_anthologys'  article.author.pk %}"><img src="/media/{{ article.author.profile.portrait }}"></a>    
+                    </div>
+                    <div class="person_list person_name"><a href="{% url 'personal_center:public_author_anthologys'  article.author.pk %}">{{ article.author.username }}</a></div>
+                    
+                                     
+                </div>
+                <div class="tags">
+                    <a href="{% url 'public:category' article.category %}"><div class="tag">{{article.category}}</div></a>
+
+                </div>
+                
+            </div>
+            <div class="content_box article_width">
+                {{ article.content|safe }}
+            </div>
+            <div class="comment_box article_width">
+                <div class="comment_tag">评论</div>
+                <div class="comment_input">
+                    {% if user.is_authenticated %}
+                        <form id='articlecomment_form'  method="post" action="{% url 'functions:article_comment' %}">
+                            {% csrf_token %}
+                            <div class="comment_people">
+                                <img src="/media/{{ user.profile.portrait }}">
+                            </div>
+                            <input type="hidden" name="article_id" value="{{ article.pk }}">
+                            <input type="hidden" name="reply_comment_id" value="0" id="reply_comment_id">
+                            <textarea id="text" name="text" rows="2" placeholder="说点什么……" required="required"></textarea>
+                            <button type="submit">发表评论</button>
+                        </form>                      
+                    {% else %}
+                        <div class="comment_people" style="background: #ccc;">
+                            <i class="icon-weidenglu iconfont"></i>
+                        </div>
+                        <textarea id="text" name="text" rows="2" placeholder="欢迎登录评论  ╮(￣▽ ￣)╭" required="required"></textarea>
+                        <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}"><button type="submit">发表评论</button></a>
+                    {% endif %}
+                    
+                </div> 
+
+                <div class="comment_list">
+                    {% for article_comment in page_of_comments %}
+                        <div class="person_comment_box">
+                            <div class="parent_comment">
+                                <div class="person_head">
+                                    <div class="person_head_img">
+                                        <img src="/media/{{ article_comment.user.profile.portrait }}">
+                                    </div>
+                                </div>
+                                <div class="person_comment" id="root_{{ article_comment.pk }}">
+                                    <div class="person_comment_name">
+                                        <a href="{% url 'personal_center:public_author_anthologys'  article_comment.user.pk %}"><div class="comment_name" id="user_{{ article_comment.pk }}">{{ article_comment.user.username }}</div></a>
+                                    </div>
+                                    <div class="person_comment_content" id="comment_{{ article_comment.pk }}">{{ article_comment.text }}</div>
+                                    <div class="person_comment_detail">
+                                        <div class="comment_detail_list"><i class="icon-time1 iconfont"></i>{{ article_comment.comment_time|date:"Y/m/d H:i:s" }}</div>
+                                        <span class="articlecomment_{{ article_comment.pk }}" style="display: none;">{{ article_comment.pk }}</span>
+                                        {% if user.is_authenticated %}
+                                            <div class="comment_detail_list comment_detail_hover dianzan {% get_user_likecomment_status article_comment %}">
+                                                <i class="icon-dianzan1 iconfont"></i>
+                                                <span>{% get_comment_likes_count article_comment %}</span>
+                                            </div>
+                                            <a href="javascript:reply({{ article_comment.pk }});">
+                                                <div class="comment_detail_list comment_detail_hover"><i class="icon-daipingjia iconfont"></i>回复</div>
+                                            </a>
+                                        {% else %}
+                                            <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                                <div class="comment_detail_list comment_detail_hover dianzan">
+                                                    <i class="icon-dianzan1 iconfont"></i>
+                                                    <span>{% get_comment_likes_count article_comment %}</span>
+                                                </div>
+                                            </a>
+                                            <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                                <div class="comment_detail_list comment_detail_hover"><i class="icon-daipingjia iconfont"></i>回复</div>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    {% for reply in article_comment.root_comment.all %}
+                                        <div class="children_comment">
+                                            <div class="children_comment_data">
+                                                <div class="children_comment_head children_float">
+                                                    <img src="/media/{{ reply.user.profile.portrait }}">
+                                                </div>
+                                                <a href="{% url 'personal_center:public_author_anthologys'  reply.user.pk %}"><div class="children_comment_name children_float" id="user_{{ reply.pk }}">{{ reply.user.username }}</div></a>
+                                                <P>回复：</P>
+                                                <a href="{% url 'personal_center:public_author_anthologys'  reply.reply_to.pk %}"><div class="children_comment_name children_float">{{ reply.reply_to.username }}</div></a>
+                                                <div class="children_comment_content children_float" id="comment_{{ reply.pk }}">{{ reply.text }}</div>
+                                            </div>
+                                            <div class="children_comment_detail">
+                                                <div class="comment_detail_list"><i class="icon-time1 iconfont"></i>{{ reply.comment_time|date:"Y/m/d H:i:s" }}</div>
+                                                <span class="articlecomment_{{ reply.pk }}" style="display: none;">{{ reply.pk }}</span>
+                                                {% if user.is_authenticated %}
+                                                    <div class="comment_detail_list comment_detail_hover dianzan {% get_user_likecomment_status reply %}">
+                                                        <i class="icon-dianzan1 iconfont"></i>
+                                                        <span>{% get_comment_likes_count reply %}</span>
+                                                    </div>
+                                                    <a href="javascript:reply({{ reply.pk }});">
+                                                        <div class="comment_detail_list comment_detail_hover"><i class="icon-daipingjia iconfont"></i>回复</div>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                                        <div class="comment_detail_list comment_detail_hover dianzan">
+                                                            <i class="icon-dianzan1 iconfont"></i>
+                                                            <span>{% get_comment_likes_count reply %}</span>
+                                                        </div>
+                                                    </a>
+                                                    <a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">
+                                                        <div class="comment_detail_list comment_detail_hover"><i class="icon-daipingjia iconfont"></i>回复</div>
+                                                    </a>
+                                                {% endif %}
+                                                
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    
+                                    
+
+
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    {% empty %}
+                    {% endfor %}
+                    
+                </div>
+                <!-- 分页器 -->
+                <div class="page_cut_box">
+                    <!-- 判断是否有上一页 -->
+                    {% if page_of_comments.has_previous %}
+                        <a href="?page={{ page_of_comments.previous_page_number }}"><div class="page_num_list pre_or_next">上一页</div></a> 
+                    {% else %}
+                        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">上一页</div></a>
+                    {% endif %}
+                    
+                    {% if left_has_more %}
+                        <a href="?search={{ search_words }}&page=1"><div class="page_num_list">1</div></a> 
+                        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+                    {% endif %}
+
+                    {% for left_page in left_pages %}
+                        <a href="?search={{ search_words }}&page={{ left_page }}"><div class="page_num_list">{{ left_page }}</div></a> 
+                        
+                    {% endfor %}
+
+                    <a href="javascript:void(0)"><div class="page_num_list active">{{ current_page }}</div></a>
+
+                    {% for right_page in right_pages %}
+                        <a href="?search={{ search_words }}&page={{ right_page }}"><div class="page_num_list">{{ right_page }}</div></a> 
+                        
+                    {% endfor %}
+
+                    {% if right_has_more %}
+                        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+                        <a href="?search={{ search_words }}&page={{ num_pages }}"><div class="page_num_list">{{ num_pages }}</div></a> 
+                        
+                    {% endif %}
+
+                    <!-- 判断是否有下一页 -->
+                    {% if page_of_comments.has_next %}
+                        <a href="?&page={{ page_of_comments.next_page_number }}"><div class="page_num_list pre_or_next">下一页</div></a> 
+                    {% else %}
+                        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">下一页</div></a>
+                    {% endif %}
+                    
+                </div>
+                
+            </div>
+        </div>        
+    </div>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script type="text/javascript">
+        // 当页面加载完毕后，将文章内容中的图片宽高变得自适应
+        $(function() { 
+            $('.content_box img').each(function(){
+                var img = $(this);
+                ImgWidth = img.width();
+                ImgHeight = img.height();
+                SetHeight = 826*ImgHeight/ImgWidth;
+                img.css('width','826px');
+                img.css('height',SetHeight+'px')
+            });            
+        });
+
+        //调整右侧个人内容的位置，当滑动470px后开始随着文章内容长度移动
+        window.onscroll= function(){
+            //变量t是滚动条滚动时，距离顶部的距离
+            var roll = document.documentElement.scrollTop||document.body.scrollTop;
+            if(roll<=470){
+                $('#scrollup').css('display','none');
+                $('.right_bar').css('top',-470+roll+'px');
+            }else{          //恢复正常
+                $('#scrollup').css('display','block');
+                $('.right_bar').css('top','0');
+            }
+        }
+        
+        //数字显示格式化，用来改变下面时间戳的
+        function numFormat(num){
+            return ('00' + num).substr(-2);
+        }
+        //时间戳格式化，用来改变下面评论异步提交的时间格式问题
+        function timeFormat(timestamp){
+            var datetime = new Date(timestamp);
+            var year = datetime.getFullYear();
+            var month = numFormat(datetime.getMonth()+1);
+            var day = numFormat(datetime.getDate());
+            var hour = numFormat(datetime.getHours()+8);
+            var minute = numFormat(datetime.getMinutes());
+            var second = numFormat(datetime.getSeconds());
+            return year + '/' + month + '/' + day + ' ' + hour + ':' + minute + ':' + second;
+        }
+
+        // 评论的异步提交
+        $("body").on("submit","#articlecomment_form",function(){
+            $.ajax({
+                url: "{% url 'functions:article_comment' %}",
+                type: 'POST',
+                data: $(this).serialize(),//表单序列化
+                cache: false,//是否用缓存数据
+                success: function(data){
+                    if(data['status']=="SUCCESS"){
+
+                        //插入数据
+                        //先判断是不是一级评论
+                        if($('#reply_comment_id').val()=='0'){
+                            //插入评论
+
+                            var comment_html =  '<div class="person_comment_box">'+
+                                                    '<div class="parent_comment">'+
+                                                        '<div class="person_head">'+
+                                                            '<div class="person_head_img">'+
+                                                                '<img src="/media/'+ data['portrait'] +'">'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                        '<div class="person_comment">'+
+                                                            '<div class="person_comment_name">'+
+                                                                '<a href="javascript:void(0)"><div class="comment_name" id="user_'+ data['pk'] +'">'+ data['username'] +'</div></a>'+
+                                                            '</div>'+
+                                                            '<div class="person_comment_content" id="comment_'+ data['pk'] +'">'+ data['text'] +'</div>'+
+                                                            '<div class="person_comment_detail">'+
+                                                                '<div class="comment_detail_list"><i class="icon-time1 iconfont"></i>'+ timeFormat(data['comment_time']) +'</div>'+
+                                                                '<span class="articlecomment_'+ data['pk'] +'" style="display: none;">'+ data['pk'] +'</span>'+
+                                                                '<div class="comment_detail_list comment_detail_hover dianzan"><i class="icon-dianzan1 iconfont"></i><span>0</span></div>'+
+                                                                '<a href="javascript:reply('+ data['pk'] +');"><div class="comment_detail_list comment_detail_hover"><i class="icon-daipingjia iconfont"></i>回复</div></a>'+
+                                                            '</div>'+
+                                                        '</div>'+
+                                                    '</div>'+
+                                                '</div>';
+                            $(".comment_list").prepend(comment_html);
+
+                        }else{
+                            //插入回复
+
+                            var reply_html =    '<div class="children_comment">'+
+                                                    '<div class="children_comment_data">'+
+                                                        '<div class="children_comment_head children_float">'+
+                                                            '<img src="/media/'+ data['portrait'] +'">'+
+                                                        '</div>'+
+                                                        '<a href="javascript:void(0)"><div class="children_comment_name children_float" id="user_'+ data['pk'] +'">'+ data['username'] +'</div></a>'+
+                                                        '<P>回复：</P>'+
+                                                        '<a href="javascript:void(0)"><div class="children_comment_name children_float">'+ data['reply_to'] +'</div></a>'+
+                                                        '<div class="children_comment_content children_float" id="comment_'+ data['pk'] +'">'+ data['text'] +'</div>'+
+                                                    '</div>'+
+                                                    '<div class="children_comment_detail">'+
+                                                        '<div class="comment_detail_list"><i class="icon-time1 iconfont"></i>'+ timeFormat(data['comment_time']) +'</div>'+
+                                                        '<span class="articlecomment_'+ data['pk'] +'" style="display: none;">'+ data['pk'] +'</span>'+
+                                                        '<div class="comment_detail_list comment_detail_hover dinazan"><i class="icon-dianzan1 iconfont"></i><span>0</span></div>'+
+                                                        '<a href="javascript:reply('+ data['pk'] +');"><div class="comment_detail_list comment_detail_hover"><i class="icon-daipingjia iconfont"></i>回复</div></a>'+
+                                                    '</div>'+
+                                                '</div>';
+                            
+                            $("#root_"+data['root_pk']).append(reply_html);
+                            
+                            
+                        };
+                        
+                        //异步提交返回后将输入框内的文字清空,reply_comment_id归零
+                        $('#text').val('');
+                        $('#text').attr("placeholder","说点什么……");
+                        $('#reply_comment_id').val('0');
+                        //完成评论后，将评论总数加一
+                        var comment_num = parseInt($('.comment_num').text());
+                        $('.comment_num').text(comment_num + 1);
+                    }else{
+                        
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+            //组织点击提交按钮后跳转或者刷新
+            return false;
+        });
+
+
+        //点击回复按钮
+        function reply(reply_comment_id){
+            //点击回复按钮后，改变默认的评论id
+            $('#reply_comment_id').val(reply_comment_id);
+            //接下来，将输入框中的内容变成：回复@用户：评论内容，这样的格式
+            var comment_user = $('#user_' + reply_comment_id).html();
+            var comment_text = $('#comment_' + reply_comment_id).html();
+            var reply_comment = '  回复  @ ' + comment_user + ' : ' + comment_text;
+            $('#text').attr("placeholder",reply_comment);
+            //滚动条滚动到输入框的位置
+            $('html').animate({scrollTop: $('#articlecomment_form').offset().top - 80}, 300, function(){
+                // 页面回到输入框的时候，光标提留在输入框内
+                $('#text').focus();
+            });
+        };
+
+        //改变文章点赞状态
+        $('.circle_1').click(function(){
+            // 获取标签中是否含有active，如果有返回true,没有返回false
+            var is_active = $('.circle_1').is('.active');
+            var article_id = $('#article_id').text();
+            // console.log(article_id);
+            $.ajax({
+                url: "{% url 'functions:article_like' %}",
+                type: 'GET',
+                data: {
+                    article_id: article_id,
+                    is_active: is_active
+                },
+                cache: false,//是否用缓存数据
+                success: function(data){
+                    // console.log(data);
+                    if(data['status']=='SUCESS'){
+                        var like_num_change = $('.like_num');
+                        var like_num = parseInt($('.like_num').text());
+                        if(is_active){
+                            // 如果现在是点赞状态，那么就熄灭点赞图标
+                            $('.circle_1').removeClass('active');
+                            // 点在数量减一
+                            like_num_change.text(like_num - 1);
+                        }else{
+                            // 如果现在是未点赞状态，那么就激活点赞图标
+                            $('.circle_1').addClass('active');
+                            // 点赞数量加一
+                            like_num_change.text(like_num + 1);  
+                        }
+                        
+                        
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+        })
+
+        //改变评论点赞状态
+        //解决一下动态添加的元素不能触发js的问题
+        $("body").on("click",".dianzan", function(){
+            // 获取标签中是否含有active，如果有返回true,没有返回false
+            var is_active = $(this).is('.active');
+            var articlecomment_id = $(this).prev().text();
+            var comment_active = $(this);
+            var comment_like_num = parseInt($(this).text());
+            var like_object = $(this).children('span');
+            // console.log(like_object);
+            $.ajax({
+                url: "{% url 'functions:articlecomment_like' %}",
+                type: 'GET',
+                data: {
+                    articlecomment_id: articlecomment_id,
+                    is_active: is_active
+                },
+                cache: false,//是否用缓存数据
+                success: function(data){
+                    // console.log(data);
+                    if(data['status']=='SUCESS'){
+                        if(is_active){
+                            // 如果现在是点赞状态，那么就熄灭点赞图标
+                            comment_active.removeClass('active');
+                            // 点在数量减一
+                            like_object.text(comment_like_num - 1);
+                        }else{
+                            // 如果现在是未点赞状态，那么就激活点赞图标
+                            comment_active.addClass('active');
+                            // 点赞数量加一
+                            like_object.text(comment_like_num + 1);  
+                        }
+                        
+                        
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+        });
+
+        //改变文章收藏状态
+        $('.circle_2').click(function(){
+            // 获取标签中是否含有active，如果有返回true,没有返回false
+            var is_active = $('.circle_2').is('.active');
+            var article_id = $('#article_id').text();
+            // console.log(article_id);
+            $.ajax({
+                url: "{% url 'functions:article_collect' %}",
+                type: 'GET',
+                data: {
+                    article_id: article_id,
+                    is_active: is_active
+                },
+                cache: false,//是否用缓存数据
+                success: function(data){
+                    // console.log(data);
+                    if(data['status']=='SUCESS'){
+                        var collect_num_change = $('.collect_num');
+                        var collect_num = parseInt($('.collect_num').text());
+                        if(is_active){
+                            // 如果现在是点赞状态，那么就熄灭点赞图标
+                            $('.circle_2').removeClass('active');
+                            // 点在数量减一
+                            collect_num_change.text(collect_num - 1);
+                        }else{
+                            // 如果现在是未点赞状态，那么就激活点赞图标
+                            $('.circle_2').addClass('active');
+                            // 点赞数量加一
+                            collect_num_change.text(collect_num + 1);  
+                        }
+                        
+                        
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+        })
+
+        //作者关注功能
+        $('.follow_button').click(function(){
+            // 获取标签中内容，看是否是已经关注了，然后获取作者id
+            var is_follow = $('.follow_button').text();
+            var author_id = $('.author_id').text();
+            var fans_num = parseInt($('.fans_num').text());
+            console.log(fans_num);
+            $.ajax({
+                url: "{% url 'functions:author_follow' %}",
+                type: 'GET',
+                data: {
+                    author_id: author_id,
+                    is_follow: is_follow
+                },
+                cache: false,//是否用缓存数据
+                success: function(data){
+                    // console.log(data);
+                    if(data['status']=='SUCESS'){
+                        if(is_follow == '已关注'){
+                            // 如果现在是关注状态，那么就改变关注图标
+                            $('.follow_button').text('+ 关注');
+                            $('.fans_num').text(fans_num-1);
+                        }else{
+                            // 如果现在是未关注状态，那么就激活关注图标
+                            $('.follow_button').text('已关注'); 
+                            $('.fans_num').text(fans_num+1); 
+                        }  
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+        })
+
+    </script>
+    <script type="text/javascript">
+        
+    </script>
+    
+</body>
+</html>

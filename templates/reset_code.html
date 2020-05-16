@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>重置密码</title>
+    <link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login_logout.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/cms.css"> -->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_ujc5ugvzv.css">
+</head>
+<body>
+    {% include 'head.html' %}
+    <div class="login_box">
+        <div class="container">
+            <div class="login_left">
+                <div class="biaoyu1">观之数静 知以律动</div>
+                <div class="biaoyu2">Observe the data to understand its law</div>
+            </div>
+            <div class="login_right">
+                <div class="welcome"><img src="/media/img/cosdata_red_min.png"></div>
+                <div class="login_input">
+                    <form id='resetconfirm_form'  method="post" action="{% url 'userprofile:reset_confirm'%}">
+                        {% csrf_token %}
+                        <div class="log_content">                          
+                            <div class="message"><i class="icon-tongzhi iconfont"></i>{{ message }}</div>
+                            <div class="content_list4">
+                                <div class="process active">
+                                    <div class="process_top">1</div>
+                                    <div class="process_bottom">填写用户</div>
+                                </div>
+                                <div class="process active">
+                                    <div class="process_top">2</div>
+                                    <div class="process_bottom">身份确认</div>
+                                </div>
+                                <div class="process">
+                                    <div class="process_top">3</div>
+                                    <div class="process_bottom">重置密码</div>
+                                </div>
+                                <div class="process">
+                                    <div class="process_top">4</div>
+                                    <div class="process_bottom">完成</div>
+                                </div>
+                            </div>
+                            <div class="content_list">
+                                <div class="content_tip">验证码已发送至您的邮箱，请查收后填写：</div>
+                            </div>
+                            <div class="content_list">
+                                <input type="hidden" name="confirm_email" value="{{ email }}">
+                                <input type="text" class="input_set" id="confirm_code" name="confirm_code" placeholder="验证码" required="required">
+                            </div>
+                            <div class="content_list">
+                                <button type="submit" class="register_immediately">确认提交</button>
+                            </div>
+
+                        </div>
+                        
+                    </form>  
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/static/js/jquery.min.js"></script>
+    
+</body>
+</html>

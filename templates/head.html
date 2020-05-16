@@ -1,0 +1,61 @@
+<header class="head">
+    <div class="container">
+        <div class="in_head">
+            <div class="logo">
+                <a href="/"><img src="/media/img/cos_log.png"></a>
+            </div>
+            <ul class="nav">
+                <a href="/"> <li class="nav_li">首页</li></a>
+                <a href="{% url 'community:community' %}"><li class="nav_li community">社区</li></a>
+                <a href="{% url 'public:category' '资讯' %}"><li class="nav_li news">资讯</li></a>
+                <a href="{% url 'public:service_intelligence' %}"> <li class="nav_li service">服务</li></a>
+
+            </ul>
+            <div class="search">
+                <form action="{% url 'article:article_serach' %}">
+                    <div class="input_box">
+                        <input type="text" name="search" id="search"  placeholder="搜一搜" required="required">
+                        <button  type="submit" id="search_button"><i class="icon-sousuo iconfont circle_hover"></i></button>
+                    </div>
+                </form>
+                
+                
+            </div>
+
+            
+            <ul class="auth_box">
+            {% if user.is_authenticated %}
+                <a href="{% url 'personal_center:article_release' %}"><div class="head_right">投稿</div></a>
+                <div class="menu_box">
+                    <li class="c_main_menu">
+                        <img src="/media/{{ user.profile.portrait }}">            
+                    </li>
+                    <div class="minor_menu minor_menu_right"> 
+                        {% if user.is_staff %}
+                            <div class="turn_box">
+                                <a  class="turn_child" href="{% url 'cms:cms' %}">管理系统</a> 
+                            </div>
+                            
+
+                        {% endif %}
+                            <div class="turn_box">
+                                <a  class="turn_child" href="{% url 'personal_center:personal_center_home' %}">个人中心</a> 
+                            </div>
+                            <div class="turn_box">
+                                <a  class="turn_child" href="{% url 'userprofile:user_logout' %}">退出</a> 
+                            </div>
+                          
+
+                   </div>
+                </div>
+
+               
+            {% else %}
+               <li class="user_login"><a href="{% url 'userprofile:login_show' %}?next={{ request.path }}">登录</a></li>
+               <li class="user_register"><a href="{% url 'userprofile:register_show' %}">注册</a></li>
+            {% endif %}
+            </ul>
+
+        </div>
+    </div>  
+</header>

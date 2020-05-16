@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录</title>
+    <link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/head.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login_logout.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/cms.css"> -->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_ujc5ugvzv.css">
+</head>
+<body>
+    {% include 'head.html' %}
+    <div class="login_box" >
+        <div class="container">
+            <div class="login_left">
+                <div class="biaoyu1">观之数静 知以律动</div>
+                <div class="biaoyu2">Observe the data to understand its law</div>
+            </div>
+            <div class="login_right">
+                <div class="welcome">
+                    <img src="/media/img/cosdata_red_min.png">
+                </div>
+                <div class="login_input">
+                    <form id='login_form'  method="post" action="{% url 'userprofile:user_login'%}">
+                        {% csrf_token %}
+                        <div class="log_content">
+                            <div class="message"><i class="icon-tongzhi iconfont"></i>{{ message }}</div>
+                            <div class="content_list">
+                                <input type="text" class="input_set" id="username" name="username" placeholder="账号" required="required">
+                            </div>
+                            <div class="content_list">
+                                <input type="password" class="input_set" id="password" name="password" placeholder="密码" required="required">
+                            </div>
+                            <div class="content_list">
+                                <input type="text" class="input_set" id="img_captcha" name="img_captcha" placeholder="验证码" required="required">
+                                <div class="verif_code">
+                                    <img class="img_captcha" src="{% url 'userprofile:img_captcha' %}">
+                                </div>
+
+                            </div>
+                            <div class="content_list">
+                                <button type="submit" class="login_immediately">立即登录</button>
+                            </div>
+                            <div class="content_list2">
+                                <input name="remember" id="remember" type="checkbox" value="1">
+                                <p>记住我</p>
+                            </div>
+                            <div class="content_list3">
+                                <a href="{% url 'userprofile:register_show' %}">立即注册>></a>
+                            </div>
+                            <div class="content_list3">
+                                <a href="{% url 'userprofile:reset_show' %}">忘记密码</a>
+                            </div>
+
+                        </div>
+                        
+                    </form>  
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script>
+        //点击切换验证码
+        $(".img_captcha").click(function(){
+            $(this).attr("src","/user/captcha/"+"?random="+Math.random())
+        });
+    </script>
+    
+</body>
+</html>

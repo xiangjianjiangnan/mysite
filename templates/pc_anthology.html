@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>文选</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			{% include 'cms_left.html' %}
+			<!-- 标题、封面、所属集合、 -->
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">文选</div>
+					<div class="create_bar" id="article_create_bar"><i class="icon-bianji iconfont"></i>  新建</div>
+					<div class="create_bar" id="putaway" style="display: none;"><i class="icon-jian iconfont"></i>  收起</div>
+				</div>
+				<div class="right_content">
+					
+					<div class="anthology_create_box" style="display:none;">
+						<form action="{% url 'personal_center:anthology_create' %}" method="post" id="anthology_form" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="right_content_left">
+								<div class="img_show">
+									<img id="cover_img" src="#">
+									<div class="icon-tianjia iconfont"></div>
+									<input type="file" name="anthology_cover" id="cover_input" accept="image/jpg,image/jpeg,image/png,image/PNG" onchange="articlecover(this)">
+									<div class="img_tip">上传文选封面 : 826×450（单位：px）</div>
+								</div>
+								
+							</div>
+							<div class="right_content_right">
+								<div class="input_box">
+									<!-- <div class="input_tip">标题</div> -->
+									<input  id="anthology_title" name="anthology_title" placeholder="标题(15字以内)" required="required" maxlength="15">
+									<!-- <div class="input_tip">描述</div> -->
+									<textarea id="anthology_describe" name="anthology_describe" rows="6" placeholder="写点什么……" required="required"  maxlength="200"></textarea>
+									<button type="submit">创建文选</button>
+								</div>
+							</div>
+
+						</form>
+					</div>
+					<div class="anthology_show_box">
+						{% for anthology in page_of_anthologys %}
+							<div class="anthology_con">
+								<div class="anthology_img_show">
+									<a href="{% url 'personal_center:anthology_article' anthology.pk %}"><img src="/media/{{ anthology.anthology_cover }}"></a>
+								</div>
+								<div class="anthology_title">
+									{{ anthology.anthology_title }}
+								</div>
+							</div>
+							
+						{% endfor %}
+					</div>
+					<!-- 分页器 -->
+					<div class="page_cut_box">
+					    <!-- 判断是否有上一页 -->
+					    {% if page_of_anthologys.has_previous %}
+					        <a href="?page={{ page_of_anthologys.previous_page_number }}"><div class="page_num_list pre_or_next">上一页</div></a> 
+					    {% else %}
+					        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">上一页</div></a>
+					    {% endif %}
+					    
+					    {% if left_has_more %}
+					        <a href="?page=1"><div class="page_num_list">1</div></a> 
+					        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+					    {% endif %}
+
+					    {% for left_page in left_pages %}
+					        <a href="?page={{ left_page }}"><div class="page_num_list">{{ left_page }}</div></a> 
+					        
+					    {% endfor %}
+
+					    <a href="javascript:void(0)"><div class="page_num_list active">{{ current_page }}</div></a>
+
+					    {% for right_page in right_pages %}
+					        <a href="?page={{ right_page }}"><div class="page_num_list">{{ right_page }}</div></a> 
+					        
+					    {% endfor %}
+
+					    {% if right_has_more %}
+					        <a href="javascript:void(0)"><div class="page_num_list">...</div></a> 
+					        <a href="?page={{ num_pages }}"><div class="page_num_list">{{ num_pages }}</div></a> 
+					        
+					    {% endif %}
+
+					    <!-- 判断是否有下一页 -->
+					    {% if page_of_anthologys.has_next %}
+					        <a href="?page={{ page_of_anthologys.next_page_number }}"><div class="page_num_list pre_or_next">下一页</div></a> 
+					    {% else %}
+					        <a href="javascript:void(0)"><div class="page_num_list pre_or_next">下一页</div></a>
+					    {% endif %}
+					    
+					</div>
+						
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/pop.js"></script>
+	<script src="/static/js/cms.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#cms_left_anthology').addClass('active');
+		})
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>操作创建成功</title>
+	<link rel="shortcut icon" type="image/ico" href="/media/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_3ftf2gxk9qe.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			{% include 'cms_left.html' %}
+			<div class="cms_right">
+				<div class="right_title">
+					<!-- <div class="right_titile_inner">文章</div> -->
+				</div>
+				<div class="jump_to" style="display:none;">{{ jump_to }}</div>
+				<div class="sucess_tip">
+					<p>{{ operation }}</p>
+					<p id="timer">3</p>
+					<p>秒后自动跳回</p>
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+
+ 
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script>
+        onload=function () {
+            setInterval(go,1000)
+        };
+        var x=2;
+        var jump_to = $('.jump_to').text()
+        function go() {
+
+            if (x>=0){
+                document.getElementById("timer").innerText=x;
+            }else {
+                location.href= jump_to;
+            }
+            x--;
+        }
+    </script>
+</body>
+</html>

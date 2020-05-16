@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>文选创建成功</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/head.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/cms.css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1469429_xtzqmvtrisr.css">
+</head>
+<body>
+	<a id="scrollup" href="#top">^</a>
+	{% include 'head.html' %}
+	<div class="cms_box">
+		<div class="container">
+			<!-- <div class="cms_top"></div> -->
+			<div class="cms_left">
+				<div class="cms_user_box">
+					<div class="cms_user_head">
+						<a href="javascript:void(0)"><img src="/media/img/user_head.jpg"></a>
+					</div>
+				</div>
+				<div class="cms_left_list">
+					<a href="{% url 'cms:cms' %}">
+						<i class="icon-shouye1 iconfont"></i>
+						<p>首页</p>
+					</a>					
+				</div>
+				<div class="cms_left_list">
+					<a href="{% url 'cms:banner' %}">
+						<i class="icon-liuchengzhong iconfont"></i>
+						<p>轮播推荐</p>
+					</a>			
+				</div>
+				<div class="cms_left_list">
+					<a href="#">
+						<i class="icon-xiangmuguanli iconfont"></i>
+						<p>精选推荐</p>
+					</a>
+					
+				</div>
+				<div class="cms_left_list">
+					<a href="#">
+						<i class="icon-yewu iconfont"></i>
+						<p>教程推荐</p>
+					</a>
+					
+				</div>
+			</div>
+			<div class="cms_right">
+				<div class="right_title">
+					<div class="right_titile_inner">文选</div>
+				</div>
+				<div class="sucess_tip">
+					<p>轮播图创建成功</p>
+					<p id="timer">3</p>
+					<p>秒后自动跳回</p>
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+
+
+
+	<script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/pop.js"></script>
+    <script>
+        onload=function () {
+            setInterval(go,1000)
+        };
+        var x=2;
+        function go() {
+
+            if (x>=0){
+                document.getElementById("timer").innerText=x;
+            }else {
+                location.href="/cms/banner/";
+            }
+            x--;
+        }
+    </script>
+</body>
+</html>
