@@ -43,7 +43,7 @@ datashape==0.5.4
 decorator==4.3.0
 defusedxml==0.5.0
 distributed==1.23.1
-Django==2.2.4
+Django==2.2.21
 django-ckeditor==5.8.0
 django-editor==0.1
 django-js-asset==1.2.2
